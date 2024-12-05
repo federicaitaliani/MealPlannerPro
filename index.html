@@ -4,48 +4,308 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design&Dine</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #6a4c9c; /* Modern purple background */
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        h2 {
+            color: #6a4c9c;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Buttons Section */
+        #feature-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-button {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-button h3 {
+            font-size: 1.6rem;
+            color: #6a4c9c;
+            margin-bottom: 15px;
+        }
+
+        .feature-button p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .feature-button a {
+            background-color: #6a4c9c;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .feature-button a:hover {
+            background-color: #5a3c7a;
+        }
+
+        #meal-plan-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        #meal-plan-form form {
+            display: grid;
+            grid-gap: 15px;
+        }
+
+        #meal-plan-form label {
+            font-size: 1.1rem;
+        }
+
+        #meal-plan-form input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #meal-plan-form button {
+            background-color: #6a4c9c;
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #meal-plan-form button:hover {
+            background-color: #5a3c7a;
+        }
+
+        #meal-plan-results {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .meal-card {
+            flex: 1 1 calc(33.33% - 20px);
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .meal-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .meal-card h3 {
+            color: #6a4c9c;
+            margin-bottom: 10px;
+        }
+
+        .meal-card a {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #6a4c9c;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .meal-card a:hover {
+            background-color: #5a3c7a;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <!-- Header Section -->
     <header>
-        <h1>Design&Dine</h1>
-        <p>Your personalized meal planning solution!</p>
+        <div class="container">
+            <h1>Design&Dine</h1>
+            <p>Your personalized meal planning solution! Healthy, affordable, and delicious meals just for you.</p>
+        </div>
     </header>
 
     <!-- Main Content Section -->
     <main>
-        <!-- Meal Plan Form -->
-        <section id="meal-plan-form">
-            <h2>Generate Your Meal Plan</h2>
-            <form method="POST" action="generate_meal_plan.php" id="meal-form">
-                <label for="preferences">Dietary Preferences:</label>
-                <input type="text" id="preferences" name="preferences" placeholder="e.g., vegetarian, keto" required>
-                
-                <label for="calories">Calorie Goal:</label>
-                <input type="number" id="calories" name="calories" placeholder="e.g., 2000" required>
-                
-                <label for="budget">Budget ($):</label>
-                <input type="number" id="budget" name="budget" placeholder="e.g., 50" required>
-                
-                <button type="submit">Generate Meal Plan</button>
-            </form>
-        </section>
+        <div class="container">
+            <!-- Feature Buttons Section -->
+            <section id="feature-buttons">
+                <div class="feature-button">
+                    <h3>Meal Planning</h3>
+                    <p>Generate custom meal plans tailored to your dietary preferences and calorie goals.</p>
+                    <a href="#meal-plan-form">Get Started</a>
+                </div>
+                <div class="feature-button">
+                    <h3>Recipe Suggestions</h3>
+                    <p>Discover new recipes based on your preferences and ingredients you already have.</p>
+                    <a href="recipe_suggestions.html">Explore Recipes</a>
+                </div>
+                <div class="feature-button">
+                    <h3>Shopping List Generator</h3>
+                    <p>Create an efficient shopping list based on your meal plan to make shopping a breeze.</p>
+                    <a href="shopping_list.html">Create Shopping List</a>
+                </div>
+            </section>
 
-        <!-- Results Section -->
-        <section id="results">
-            <h2>Your Meal Plan</h2>
-            <div id="meal-results">
-                <!-- Meal results will be dynamically added here -->
-            </div>
-        </section>
+            <!-- Meal Plan Form -->
+            <section id="meal-plan-form">
+                <h2>Generate Your Perfect Meal Plan</h2>
+                <p>Choose your preferences and let us do the rest! Get personalized meal plans based on your budget, dietary needs, and calorie goals.</p>
+                <form method="POST" action="generate_meal_plan.php" id="meal-form">
+                    <label for="preferences">Dietary Preferences:</label>
+                    <input type="text" id="preferences" name="preferences" placeholder="e.g., vegetarian, keto" required>
+                    
+                    <label for="calories">Calorie Goal:</label>
+                    <input type="number" id="calories" name="calories" placeholder="e.g., 2000" required>
+                    
+                    <label for="budget">Budget ($):</label>
+                    <input type="number" id="budget" name="budget" placeholder="e.g., 50" required>
+                    
+                    <button type="submit">Generate Meal Plan</button>
+                </form>
+                <div id="meal-plan-results"></div>
+            </section>
+        </div>
     </main>
 
     <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 MealPlanner Pro. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2024 Design&Dine. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a></p>
+        </div>
     </footer>
 
-    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+    <script>
+    document.getElementById("meal-form").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent form reload
+
+    const preferences = document.getElementById("preferences").value;
+    const calories = document.getElementById("calories").value;
+    const budget = document.getElementById("budget").value;
+
+    try {
+        const response = await fetch("generate_meal_plan.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `preferences=${encodeURIComponent(preferences)}&calories=${calories}&budget=${budget}`,
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Log debugging information to the console
+            console.log("Debug Info:", data.debug);
+
+            const resultsDiv = document.getElementById("meal-plan-results");
+            resultsDiv.innerHTML = "";
+
+            for (const meal in data.mealPlan) {
+                const mealData = data.mealPlan[meal];
+                resultsDiv.innerHTML += `
+                    <div class="meal-card">
+                        <h3>${meal.charAt(0).toUpperCase() + meal.slice(1)}</h3>
+                        <img src="${mealData.image}" alt="${mealData.title}">
+                        <p>${mealData.title}</p>
+                        <p>Calories: ${mealData.calories}</p>
+                        <a href="${mealData.link}" target="_blank">View Recipe</a>
+                    </div>`;
+            }
+        } else {
+            console.error("Error: Could not generate meal plan.");
+        }
+    } catch (error) {
+        console.error("Error fetching meal plan:", error);
+    }
+});
+    </script>
 </body>
 </html>
