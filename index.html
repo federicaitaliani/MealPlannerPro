@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f9;
+            background-color:  #e4d426;
             color: #333;
             line-height: 1.6;
         }
@@ -28,8 +28,8 @@
 
         /* Header */
         header {
-            background-color: #6a4c9c; /* Modern purple background */
-            color: white;
+            background-color: #ffffff; /* Modern purple background */
+            color:#e4d426;
             text-align: center;
             padding: 60px 0;
         }
@@ -43,10 +43,11 @@
         }
 
         header p {
-            font-size: 1.2rem;
-            font-weight: 400;
-            margin-top: 10px;
+            font-size: 1.5rem; /* Increased font size */
+            font-weight: bold; /* Made text bold */
+            margin-bottom: 20px; /* Added more space below the paragraph */
         }
+
 
         /* Main Content */
         main {
@@ -54,7 +55,7 @@
         }
 
         h2 {
-            color: #6a4c9c;
+            color:  #e4d426;
             font-size: 2rem;
             margin-bottom: 20px;
         }
@@ -83,7 +84,7 @@
 
         .feature-button h3 {
             font-size: 1.6rem;
-            color: #6a4c9c;
+            color: #0d0d0e;
             margin-bottom: 15px;
         }
 
@@ -94,7 +95,7 @@
         }
 
         .feature-button a {
-            background-color: #6a4c9c;
+            background-color: #e4d426;
             color: white;
             padding: 12px 20px;
             text-decoration: none;
@@ -104,7 +105,7 @@
         }
 
         .feature-button a:hover {
-            background-color: #5a3c7a;
+            background-color: #e4d426;
         }
 
         #meal-plan-form {
@@ -132,7 +133,7 @@
         }
 
         #meal-plan-form button {
-            background-color: #6a4c9c;
+            background-color: #e4d426;
             color: white;
             font-size: 1.2rem;
             padding: 12px;
@@ -143,7 +144,7 @@
         }
 
         #meal-plan-form button:hover {
-            background-color: #5a3c7a;
+            background-color: #e4d426;
         }
 
         #meal-plan-results {
@@ -184,7 +185,7 @@
         }
 
         .meal-card a:hover {
-            background-color: #5a3c7a;
+            background-color:  #e4d426;
         }
 
         /* Footer */
@@ -203,17 +204,107 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+
+        .top-nav {
+    background-color: white;
+    border-bottom: 1px solid #e4d426;
+    padding: 10px 0;
+    position: sticky; /* Makes it stick to the top */
+    top: 0;
+    z-index: 1000;  
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .logo {
+        height: 50px; /* Adjust as needed */
+        margin-right: 20px;
+    }
+
+    nav a {
+        color:  #e4d426; /* Modern purple */
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 15px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover {
+        background-color: #e7e4ec;
+        color: white;
+    }
+
+
+        .kiwi {
+        width: 100%; /* Match the width of the container */
+        height: 300px; /* Adjust height as needed */
+        object-fit: cover; /* Ensure the image is cropped to fit the area */
+        object-position: center; /* Center the image horizontally */
+        display: block; /* Ensures no extra spaces appear around the image */
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            background-color: rgb(105, 170, 62); /* Updated button background color */
+            color:  #e4d426; /* Updated button text color */
+            font-size: 1.2rem; /* Made button text bigger */
+            font-weight: bold; /* Made button text bold */
+            padding: 15px 30px; /* Increased button padding */
+            border: none;
+            border-radius: 10px; /* Slightly curved corners */
+            text-decoration: none; /* Removed underline */
+            cursor: pointer; /* Pointer cursor */
+            margin-top: 20px; /* Added margin to move the button down */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+        }
+
+    .learn-more-btn:hover {
+        background-color: #333; /* Darker shade on hover */
+        color: white; /* Change text color on hover */
+        transform: translateY(-5px); /* Slight hover effect */
+    }
+
+  
+
+  
+
     </style>
 </head>
 <body>
+
+    <div class="top-nav">
+        <div class="nav-container">
+            <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+            <nav>
+                <a href="#meal-plan-form">PLANNING</a>
+                <a href="recipe_suggestions.html">RECIPES</a>
+                <a href="shopping_list.html">SHOPPING</a>
+            </nav>
+        </div>
+    </div>
+
     <!-- Header Section -->
     <header>
+        <img src="kiwi.jpg" alt="Kiwi Image" class="kiwi">
         <div class="container">
-            <h1>Design&Dine</h1>
-            <p>Your personalized meal planning solution! Healthy, affordable, and delicious meals just for you.</p>
+            <h1>Design & Dine</h1>
+            <p>Discover the ultimate platform to transform your lifestyle. From tailored meal plans to mouthwatering dishes, we make healthy eating affordable and easy—just for you.</p>
+            <a href="#learn-more" class="learn-more-btn">Learn More</a>
         </div>
     </header>
-
+    
+ 
     <!-- Main Content Section -->
     <main>
         <div class="container">
@@ -235,7 +326,11 @@
                     <a href="shopping_list.html">Create Shopping List</a>
                 </div>
             </section>
+        </div>
 
+             <img src="kiwi5.jpg" alt="Kiwi Image" class="kiwi">
+           
+            <div class="container">
             <!-- Meal Plan Form -->
             <section id="meal-plan-form">
                 <h2>Generate Your Perfect Meal Plan</h2>
