@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // Include database connection
+include 'db.php'; // Include the database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate inputs
@@ -11,21 +11,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $conn->real_escape_string($username);
         $password = $conn->real_escape_string($password);
 
-        // Insert the user into the database
-        $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+        // Check if the username already exists in the database
+        $check_sql = "SELECT id FROM users WHERE username = '$username'";
+        $result = $conn->query($check_sql);
 
-        // Execute the query and handle the result
-        if ($conn->query($sql) === TRUE) {
-            echo "Registration successful! <a href='login.html'>Login here</a>";
+        if ($result->num_rows > 0) {
+            // User already exists
+            echo "Error: Username already exists. <a href='login.html'>Login here</a>";
         } else {
-            if ($conn->errno == 1062) { // Duplicate entry error code
-                echo "Error: Username already exists. Please choose a different username.";
+            // Insert the new user into the database
+            $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+
+            if ($conn->query($sql) === TRUE) {
+                echo "Registration successful! <a href='login.html'>Login here</a>";
             } else {
                 echo "Error: " . $conn->error;
             }
         }
     } else {
-        echo "Both fields are required.";
+        echo "Both username and password fields are required.";
     }
 
     $conn->close(); // Close the database connection
