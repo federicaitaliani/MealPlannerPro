@@ -1,45 +1,46 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-// session_start();
-// include 'db.php';
-
-// if (headers_sent($file, $line)) {
-//     die("Headers already sent in $file on line $line");
-// }
-
 session_start();
 include 'db.php'; // Include database connection
 
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize the username input
-    $username = $conn->real_escape_string($_POST['username']);
+    // Retrieve and sanitize input
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']); // Make sure to include a password field in your form
 
-    // Query to fetch the user ID based on the username
-    $sql = "SELECT id FROM users WHERE username = '$username'";
-    $result = $conn->query($sql);
+    if (!empty($username) && !empty($password)) {
+        // Use prepared statements to prevent SQL injection
+        $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        // Fetch the user ID and store it in the session
-        $user = $result->fetch_assoc();
-        $_SESSION['user_id'] = $user['id']; 
+        // Check if the user exists
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
 
-        // Redirect to the dashboard
-        header("Location: dashboard.php");
-        exit();
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
+                // Store user ID in session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $username;
+
+                // Redirect to the dashboard
+                header("Location: dashboard.php");
+                exit();
+            } else {
+                echo "Invalid password. Please try again.";
+            }
+        } else {
+            echo "Username not found. Please register.";
+        }
+
+        $stmt->close();
     } else {
-        echo "Username not found. Please register.";
+        echo "Please fill in all fields.";
     }
 
+    // Close the database connection
     $conn->close();
 }
 ?>
-
-<!-- Login Form -->
-<form method="POST" action="login.php">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-
-    <button type="submit">Login</button>
-</form>
