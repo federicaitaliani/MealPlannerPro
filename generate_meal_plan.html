@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Meal Plan</title>
     <style>
-         /* General Reset */
+        /* General Reset */
         * {
             margin: 0;
             padding: 0;
@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color:  #e4d426;
+            background-color: #e4d426;
             color: #333;
             line-height: 1.6;
         }
@@ -29,8 +29,8 @@
 
         /* Header */
         header {
-            background-color: #ffffff; /* Modern purple background */
-            color:#e4d426;
+            background-color: #ffffff;
+            color: #e4d426;
             text-align: center;
             padding: 60px 0;
         }
@@ -45,71 +45,47 @@
         }
 
         header p {
-            font-size: 1.5rem; /* Increased font size */
-            font-weight: bold; /* Made text bold */
-            margin-bottom: 20px; /* Added more space below the paragraph */
-        }
-
-
-        /* Main Content */
-        main {
-            padding: 40px 0;
-        }
-
-        h2 {
-            color:  #e4d426;
-            font-size: 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
             margin-bottom: 20px;
         }
 
-        /* Buttons Section */
-        #feature-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+        /* Navigation */
+        .top-nav {
+            background-color: white;
+            border-bottom: 1px solid #e4d426;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .feature-button {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .feature-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-button h3 {
-            font-size: 1.6rem;
-            color: #0d0d0e;
-            margin-bottom: 15px;
-        }
-
-        .feature-button p {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .feature-button a {
-            background-color: #e4d426;
-            color: white;
-            padding: 12px 20px;
+        nav a {
+            color: #e4d426;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .feature-button a:hover {
-            background-color: #e4d426;
+        nav a:hover {
+            background-color: #333;
+            color: white;
         }
 
+        /* Meal Plan Form Styling */
         #meal-plan-form {
             background-color: #fff;
             padding: 30px;
@@ -146,7 +122,8 @@
         }
 
         #meal-plan-form button:hover {
-            background-color: #e4d426;
+            background-color: #333;
+            color: white;
         }
 
         #meal-plan-results {
@@ -187,7 +164,7 @@
         }
 
         .meal-card a:hover {
-            background-color:  #e4d426;
+            background-color: #e4d426;
         }
 
         /* Footer */
@@ -206,76 +183,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-
-        .top-nav {
-    background-color: white;
-    border-bottom: 1px solid #e4d426;
-    padding: 10px 0;
-    position: sticky; /* Makes it stick to the top */
-    top: 0;
-    z-index: 1000;  
-    }
-
-    .nav-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    .logo {
-        height: 50px; /* Adjust as needed */
-        margin-right: 20px;
-    }
-
-    nav a {
-        color:  #e4d426; /* Modern purple */
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: bold;
-        margin: 0 15px;
-        padding: 8px 12px;
-        border-radius: 4px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    nav a:hover {
-        background-color: #e7e4ec;
-        color: white;
-    }
-
-
-        .kiwi {
-        width: 100%; /* Match the width of the container */
-        height: 300px; /* Adjust height as needed */
-        object-fit: cover; /* Ensure the image is cropped to fit the area */
-        object-position: center; /* Center the image horizontally */
-        display: block; /* Ensures no extra spaces appear around the image */
-        }
-
-        .learn-more-btn {
-            display: inline-block;
-            background-color: rgb(105, 170, 62); /* Updated button background color */
-            color:  #e4d426; /* Updated button text color */
-            font-size: 1.2rem; /* Made button text bigger */
-            font-weight: bold; /* Made button text bold */
-            padding: 15px 30px; /* Increased button padding */
-            border: none;
-            border-radius: 10px; /* Slightly curved corners */
-            text-decoration: none; /* Removed underline */
-            cursor: pointer; /* Pointer cursor */
-            margin-top: 20px; /* Added margin to move the button down */
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
-        }
-
-    .learn-more-btn:hover {
-        background-color: #333; /* Darker shade on hover */
-        color: white; /* Change text color on hover */
-        transform: translateY(-5px); /* Slight hover effect */
-    }
     </style>
 </head>
 <body>
@@ -285,7 +192,15 @@
             <p>Choose your preferences and let us do the rest! Get personalized meal plans based on your budget, dietary needs, and calorie goals.</p>
         </div>
     </header>
-
+    <div class="top-nav">
+        <div class="nav-container">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </div>
     <main>
         <div class="container">
             <!-- Meal Plan Form -->
@@ -306,46 +221,9 @@
             </section>
         </div>
     </main>
-
-    <script>
-    document.getElementById("meal-form").addEventListener("submit", async function (event) {
-        event.preventDefault(); // Prevent form reload
-
-        const preferences = document.getElementById("preferences").value;
-        const calories = document.getElementById("calories").value;
-        const budget = document.getElementById("budget").value;
-
-        try {
-            const response = await fetch("generate_meal_plan.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `preferences=${encodeURIComponent(preferences)}&calories=${calories}&budget=${budget}`,
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-                const resultsDiv = document.getElementById("meal-plan-results");
-                resultsDiv.innerHTML = "";
-
-                for (const meal in data.mealPlan) {
-                    const mealData = data.mealPlan[meal];
-                    resultsDiv.innerHTML += `
-                        <div class="meal-card">
-                            <h3>${meal.charAt(0).toUpperCase() + meal.slice(1)}</h3>
-                            <img src="${mealData.image}" alt="${mealData.title}">
-                            <p>${mealData.title}</p>
-                            <p>Calories: ${mealData.calories}</p>
-                            <a href="${mealData.link}" target="_blank">View Recipe</a>
-                        </div>`;
-                }
-            } else {
-                console.error("Error: Could not generate meal plan.");
-            }
-        } catch (error) {
-            console.error("Error fetching meal plan:", error);
-        }
-    });
-    </script>
+    <footer>
+        <p>&copy; 2024 My Website | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+    </footer>
 </body>
 </html>
+
