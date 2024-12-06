@@ -1,28 +1,33 @@
 <?php
 include 'db.php'; // Include database connection
-echo "<br>Connected to database successfully!<br>";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
+    // Sanitize and validate inputs
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
-    // Insert the username into the database
-    $sql = "INSERT INTO users (username) VALUES ('$username')";
-    echo "SQL Query: $sql<br>";
+    if (!empty($username) && !empty($password)) {
+        // Sanitize inputs to prevent SQL injection
+        $username = $conn->real_escape_string($username);
+        $password = $conn->real_escape_string($password);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Registration successful!";
-    } else { 
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Insert the user into the database
+        $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+
+        // Execute the query and handle the result
+        if ($conn->query($sql) === TRUE) {
+            echo "Registration successful! <a href='login.html'>Login here</a>";
+        } else {
+            if ($conn->errno == 1062) { // Duplicate entry error code
+                echo "Error: Username already exists. Please choose a different username.";
+            } else {
+                echo "Error: " . $conn->error;
+            }
+        }
+    } else {
+        echo "Both fields are required.";
     }
 
-    $conn->close(); // Close the connection here
+    $conn->close(); // Close the database connection
 }
 ?>
-
-<form method="POST" action="register.php">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-    <label for="password">Password:</label>
-    <input type="text" id="password" name="password" required><br>
-    <button type="submit">Register</button>
-</form> 
