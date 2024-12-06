@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
 
                 // Redirect to the dashboard
-                header("Location: dashboard.php");
+                header("Location: index.html");
                 exit();
             } else {
                 echo "Invalid password. Please try again.";
