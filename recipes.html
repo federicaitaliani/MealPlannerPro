@@ -1,1 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Details</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: "Roboto", sans-serif;
+            background-color: #e4d426;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            color: #e4d426;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        header h1 {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Recipe Details Section */
+        #recipe-details {
+            padding: 30px;
+        }
+
+        #recipe-details h2 {
+            color: #e4d426;
+            margin-bottom: 20px;
+        }
+
+        .recipe-image {
+            width: 80%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Container Styling for Sections */
+        .box {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions ol, .ingredients ul, .equipment ul {
+            padding-left: 20px;
+        }
+
+        .back-button {
+            background-color: #6a4c9c;
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #5a3c7a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Recipe Details</h1>
+            <p>Explore the full recipe details for your selected meal.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Recipe Details -->
+            <section id="recipe-details">
+                <h2 id="recipe-title"></h2>
+                <img id="recipe-image" class="recipe-image" src="" alt="" />
+
+                <!-- Instructions Section - in a separate box -->
+                <div class="box instructions">
+                    <h3>Instructions:</h3>
+                    <ol id="instructions-list"></ol>
+                </div>
+
+                <!-- Ingredients Section - in a separate box -->
+                <div class="box ingredients">
+                    <h3>Ingredients:</h3>
+                    <ul id="ingredients-list"></ul>
+                </div>
+
+                <!-- Equipment Section - in a separate box -->
+                <div class="box equipment">
+                    <h3>Equipment:</h3>
+                    <ul id="equipment-list"></ul>
+                </div>
+
+                <!-- <button class="back-button" onclick="window.history.back()">Back to Meal Plan</button> *** REMOVE --> 
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            // Get the recipe ID from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const recipeId = urlParams.get("id");
+
+            if (!recipeId) {
+                alert("No recipe selected.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`recipes.php?id=${recipeId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const recipe = data.recipe;
+
+                    // Set recipe title
+                    document.getElementById("recipe-title").textContent = recipe.title;
+
+                    // Set recipe image
+                    document.getElementById("recipe-image").src = recipe.image;
+                    document.getElementById("recipe-image").alt = recipe.title;
+
+                    // Set ingredients list
+                    const ingredientsList = document.getElementById("ingredients-list");
+                    recipe.ingredients.forEach(ingredient => {
+                        const li = document.createElement("li");
+                        li.textContent = ingredient.name;
+                        ingredientsList.appendChild(li);
+                    });
+
+                    // Set equipment list
+                    const equipmentList = document.getElementById("equipment-list");
+                    if (recipe.equipment.length === 0) {
+                        equipmentList.innerHTML = "<li>No special equipment needed.</li>";
+                    } else {
+                        recipe.equipment.forEach(equipment => {
+                            const li = document.createElement("li");
+                            li.textContent = equipment;
+                            equipmentList.appendChild(li);
+                        });
+                    }
+
+                  // Set instructions list
+                  const instructionsList = document.getElementById("instructions-list");
+                  instructionsList.innerHTML = ""; // Clear any existing content
+
+                  if (Array.isArray(recipe.instructions)) {
+                      // Handle analyzedInstructions as an array
+                      recipe.instructions.forEach((instruction) => {
+                          const li = document.createElement("li");
+                          li.textContent = instruction;
+                          instructionsList.appendChild(li);
+                      });
+                  } else if (typeof recipe.instructions === "string") {
+                      // Handle plain-text or HTML instructions
+                      instructionsList.innerHTML = recipe.instructions; // Safely insert HTML
+                  } else {
+                      // Fallback for missing instructions
+                      instructionsList.innerHTML = "<li>No instructions available.</li>";
+                  }
+                } else {
+                    alert("Could not retrieve recipe details. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error fetching recipe:", error);
+                alert("There was an error fetching the recipe details.");
+            }
+        });
+    </script>
+</body>
+</html>
