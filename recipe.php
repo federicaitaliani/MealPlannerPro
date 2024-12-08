@@ -1,79 +1,82 @@
 <?php
-// Set the content type to JSON
 header('Content-Type: application/json');
 
-// Get the recipe ID from the query string
-$recipeId = isset($_GET['id']) ? $_GET['id'] : null;
+// Your Spoonacular API key
+$apiKey = "d7ee40b48bfe4a1d941026d5ac5233d2";
 
-if ($recipeId) {
-    // Your API key
-    $apiKey = "3c77525db565413abf818b2e2fb68b80";
+// Enable error reporting for debugging (use cautiously in production)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-    // Fetch recipe details using the recipe ID
-    $url = "https://api.spoonacular.com/recipes/$recipeId/information?apiKey=$apiKey";
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $response = curl_exec($ch);
-    curl_close($ch);
+// Get the recipe ID from the query parameters
+$recipeId = $_GET['id'] ?? null;
 
-    // Decode the response
-    $recipeDetails = json_decode($response, true);
+if (!$recipeId) {
+    echo json_encode(['success' => false, 'message' => 'No recipe ID provided.']);
+    exit();
+}
 
-    // Initialize response data
-    $recipeData = [];
+// Build the API URL for the recipe information
+$url = "https://api.spoonacular.com/recipes/{$recipeId}/information?apiKey={$apiKey}";
 
-    if ($recipeDetails) {
-        // Extract recipe title, image, and other details
-        $recipeData['title'] = $recipeDetails['title'];
-        $recipeData['image'] = $recipeDetails['image'];
-        $recipeData['calories'] = $recipeDetails['calories'];
-        
-        // Extract ingredients
-        $ingredients = $recipeDetails['extendedIngredients'] ?? [];
-        $ingredientList = [];
-        foreach ($ingredients as $ingredient) {
-            $ingredientList[] = [
-                'name' => $ingredient['original'],
-                'image' => "https://spoonacular.com/cdn/ingredients_100x100/{$ingredient['image']}"
-            ];
-        }
-        $recipeData['ingredients'] = $ingredientList;
+// Fetch the recipe details from the Spoonacular API
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
 
-        // Extract equipment
-        $equipmentList = [];
-        if (isset($recipeDetails['analyzedInstructions'][0]['steps'])) {
-            foreach ($recipeDetails['analyzedInstructions'][0]['steps'] as $step) {
-                if (isset($step['equipment'])) {
-                    foreach ($step['equipment'] as $equip) {
-                        $equipmentList[] = $equip['name'];
-                    }
+// Check for API errors
+if ($httpCode !== 200 || !$response) {
+    echo json_encode(['success' => false, 'message' => 'Failed to fetch recipe details.']);
+    exit();
+}
+
+// Decode the API response
+$data = json_decode($response, true);
+
+if (isset($data['id'])) {
+    // Extract equipment from analyzedInstructions
+    $equipment = [];
+    if (isset($data['analyzedInstructions'][0]['steps'])) {
+        foreach ($data['analyzedInstructions'][0]['steps'] as $step) {
+            if (isset($step['equipment'])) {
+                foreach ($step['equipment'] as $item) {
+                    $equipment[] = $item['name'];
                 }
             }
         }
-        $recipeData['equipment'] = $equipmentList;
-
-        // Extract instructions
-        $instructions = $recipeDetails['instructions'] ?? 'Instructions not available';
-        $recipeData['instructions'] = $instructions;
-        
-        // Return JSON response
-        echo json_encode([
-            'success' => true,
-            'recipe' => $recipeData
-        ]);
-    } else {
-        // If recipe details are not found, return an error
-        echo json_encode([
-            'success' => false,
-            'message' => 'Recipe not found or API call failed'
-        ]);
     }
+
+    // Remove duplicate equipment entries
+    $equipment = array_unique($equipment);
+
+    // Prepare instructions
+    $instructions = [];
+    if (isset($data['analyzedInstructions'][0]['steps'])) {
+        foreach ($data['analyzedInstructions'][0]['steps'] as $step) {
+            $instructions[] = $step['step'];
+        }
+    } elseif (!empty($data['instructions'])) {
+        // Fallback if no analyzed instructions
+        $instructions = [strip_tags($data['instructions'])];
+    }
+
+    // Prepare the recipe data to send to the frontend
+    $recipe = [
+        'title' => $data['title'] ?? 'No Title Available',
+        'image' => $data['image'] ?? 'https://via.placeholder.com/300', // Fallback image
+        'ingredients' => array_map(function ($ingredient) {
+            return ['name' => $ingredient['original']];
+        }, $data['extendedIngredients'] ?? []),
+        'equipment' => !empty($equipment) ? $equipment : ['No special equipment needed.'],
+        'instructions' => !empty($instructions) ? $instructions : ['No instructions available.'],
+    ];
+
+    echo json_encode(['success' => true, 'recipe' => $recipe]);
 } else {
-    // If no recipe ID is provided
-    echo json_encode([
-        'success' => false,
-        'message' => 'No recipe ID provided'
-    ]);
+    // Log the unexpected API response for debugging
+    file_put_contents('debug_recipes.log', $response . PHP_EOL, FILE_APPEND);
+    echo json_encode(['success' => false, 'message' => 'Recipe not found or invalid data.']);
 }
-?>
