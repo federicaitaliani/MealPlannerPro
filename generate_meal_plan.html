@@ -328,54 +328,49 @@
     </main>
 
     <script>
-      document
-        .getElementById("meal-form")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault(); // Prevent form reload
-
-          const preferences = document.getElementById("preferences").value;
-          const calories = document.getElementById("calories").value;
-          const budget = document.getElementById("budget").value;
-
-          try {
-            const response = await fetch("generate_meal_plan.php", {
-              method: "POST",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: `preferences=${encodeURIComponent(
-                preferences
-              )}&calories=${calories}&budget=${budget}`,
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-              const resultsDiv = document.getElementById("meal-plan-results");
-              resultsDiv.innerHTML = "";
-
-              for (const meal in data.mealPlan) {
-                const mealData = data.mealPlan[meal];
-                resultsDiv.innerHTML += `
-                        <div class="meal-card">
-                            <h3>${
-                              meal.charAt(0).toUpperCase() + meal.slice(1)
-                            }</h3>
-                            <img src="${mealData.image}" alt="${
-                  mealData.title
-                }">
-                            <p>${mealData.title}</p>
-                            <p>Calories: ${mealData.calories}</p>
-                            <a href="${
-                              mealData.link
-                            }" target="_blank">View Recipe</a>
-                        </div>`;
-              }
-            } else {
-              console.error("Error: Could not generate meal plan.");
+    document
+      .getElementById("meal-form")
+      .addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent form reload
+    
+        const preferences = document.getElementById("preferences").value;
+        const calories = document.getElementById("calories").value;
+        const budget = document.getElementById("budget").value;
+    
+        try {
+          const response = await fetch("generate_meal_plan.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `preferences=${encodeURIComponent(
+              preferences
+            )}&calories=${calories}&budget=${budget}`,
+          });
+    
+          const data = await response.json();
+    
+          if (data.success) {
+            const resultsDiv = document.getElementById("meal-plan-results");
+            resultsDiv.innerHTML = "";
+    
+            for (const meal in data.mealPlan) {
+              const mealData = data.mealPlan[meal];
+              resultsDiv.innerHTML += `
+                  <div class="meal-card">
+                      <h3>${meal.charAt(0).toUpperCase() + meal.slice(1)}</h3>
+                      <img src="${mealData.image}" alt="${mealData.title}">
+                      <p>${mealData.title}</p>
+                      <p>Calories: ${mealData.calories}</p>
+                      <a href="recipes.html" target="_blank">View Recipe</a>
+                  </div>`;
             }
-          } catch (error) {
-            console.error("Error fetching meal plan:", error);
+          } else {
+            console.error("Error: Could not generate meal plan.");
           }
-        });
-    </script>
+        } catch (error) {
+          console.error("Error fetching meal plan:", error);
+        }
+      });
+    
+        </script>
   </body>
 </html>
