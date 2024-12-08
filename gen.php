@@ -2,7 +2,7 @@
 header('Content-Type: application/json'); // Set the response type to JSON
 
 // Your API key
-$apiKey = "3c77525db565413abf818b2e2fb68b80";
+$apiKey = "d7ee40b48bfe4a1d941026d5ac5233d2";
 
 // Get user inputs
 $preferences = $_POST['preferences'] ?? 'any';
@@ -63,17 +63,19 @@ foreach ($daysOfWeek as $day) {
         // If a recipe is found, add it to the meal plan
         if ($selectedRecipe) {
             $mealPlan[$day][$mealType] = [
+                'id' => $selectedRecipe['id'], // Include recipe ID
                 'title' => $selectedRecipe['title'],
                 'calories' => $calorieLimit, // Assumes calorie limit for now
                 'cost' => number_format($selectedRecipe['pricePerServing'] / 100, 2), // Cost for one serving
                 'image' => $selectedRecipe['image'],
-                'link' => "recipes.html?id=" . $selectedRecipe['id'],
+                'link' => "recipes.html?id=" . $selectedRecipe['id'], // Correct recipe link
             ];
         } else {
             // Fallback for missing recipes or budget constraints
             $mealPlan[$day][$mealType] = [
+                'id' => null,
                 'title' => 'No recipe found (Budget exceeded)',
-                'calories' => 'N/A',
+                'calories' => 0,
                 'cost' => 'N/A',
                 'image' => 'https://via.placeholder.com/150',
                 'link' => '#',
