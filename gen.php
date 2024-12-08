@@ -62,6 +62,12 @@ foreach ($daysOfWeek as $day) {
 
         // If a recipe is found, add it to the meal plan
         if ($selectedRecipe) {
+
+            //PASSING THE selectedrecepie id to the recipie php
+            $recipeId = $selectedRecipe['id']; 
+            $linkToRecipe = "recipe.php?id=" . urlencode($recipeId);
+
+
             $mealPlan[$day][$mealType] = [
                 'title' => $selectedRecipe['title'],
                 'calories' => $calorieLimit, // Assumes calorie limit for now
@@ -69,6 +75,7 @@ foreach ($daysOfWeek as $day) {
                 'image' => $selectedRecipe['image'],
                 'link' => "https://spoonacular.com/recipes/" . $selectedRecipe['title'] . "-" . $selectedRecipe['id'],
             ];
+        }
         } else {
             // Fallback for missing recipes or budget constraints
             $mealPlan[$day][$mealType] = [
@@ -80,7 +87,9 @@ foreach ($daysOfWeek as $day) {
             ];
         }
     }
-}
+
 
 // Return the meal plan as JSON
 echo json_encode(['success' => true, 'mealPlan' => $mealPlan]);
+
+
