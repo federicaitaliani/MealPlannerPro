@@ -15,4 +15,13 @@
 
 	// Select database
 	$conn->select_db($db);
+
+	try {
+		$pdo = new PDO('mysql:host=localhost;dbname=dbmf6wszms8ula', 'u4gf7e74mkd1u', '@6o1r1$4245g');
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		error_log("Database connection successful!");
+	} catch (PDOException $e) {
+		error_log("Database connection failed: " . $e->getMessage());
+    	exit('Database connection error.');
+	}
 ?>
