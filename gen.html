@@ -205,68 +205,100 @@
 
     <script>
         document.getElementById("meal-form").addEventListener("submit", async function (event) {
-        event.preventDefault(); // Prevent form reload
+            event.preventDefault();
 
-        const preferences = document.getElementById("preferences").value;
-        const calories = document.getElementById("calories").value;
-        const budget = document.getElementById("budget").value;
+            const preferences = document.getElementById("preferences").value;
+            const calories = document.getElementById("calories").value;
+            const budget = document.getElementById("budget").value;
 
-        try {
-            const response = await fetch("gen.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `preferences=${encodeURIComponent(preferences)}&calories=${calories}&budget=${budget}`,
-            });
+            try {
+                const response = await fetch("gen.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `preferences=${encodeURIComponent(preferences)}&calories=${calories}&budget=${budget}`,
+                });
 
-            const data = await response.json();
-            const resultsDiv = document.getElementById("meal-plan-results");
+                const data = await response.json();
+                const resultsDiv = document.getElementById("meal-plan-results");
 
-            resultsDiv.innerHTML = "";
+                resultsDiv.innerHTML = "";
 
-            if (data.success) {
-                const mealPlan = data.mealPlan;
-                for (const [day, meals] of Object.entries(mealPlan)) {
-                    const daySection = document.createElement("div");
-                    daySection.classList.add("day-meal-plan");
-                    daySection.innerHTML = `<h3>${day}</h3>`;
+                if (data.success) {
+                    const mealPlan = data.mealPlan;
+                    console.log("Generated Meal Plan:", mealPlan);
 
-                    for (const [mealType, mealData] of Object.entries(meals)) {
-                        const mealCard = document.createElement("div");
-                        mealCard.classList.add("meal-card");
+                    for (const [day, meals] of Object.entries(mealPlan)) {
+                        const daySection = document.createElement("div");
+                        daySection.classList.add("day-meal-plan");
+                        daySection.innerHTML = `<h3>${day}</h3>`;
 
-                        // Construct the recipe link with the recipe ID
-                        const recipeLink = `recipes.html?id=${mealData.id}`;
+                        for (const [mealType, mealData] of Object.entries(meals)) {
+                            const mealCard = document.createElement("div");
+                            mealCard.classList.add("meal-card");
 
-                        mealCard.innerHTML = `
-                            <img src="${mealData.image}" alt="${mealData.title}" />
-                            <div>
-                                <h4>${mealType.charAt(0).toUpperCase() + mealType.slice(1)}: ${mealData.title}</h4>
-                                <p>Calories: ${mealData.calories}</p>
-                                <p>Cost: $${mealData.cost}</p>
-                                <a href="${recipeLink}" target="_blank">View Recipe</a>
-                            </div>
-                        `;
-                        daySection.appendChild(mealCard);
+                            const recipeLink = `recipes.html?id=${mealData.id}`;
+
+                            mealCard.innerHTML = `
+                                <img src="${mealData.image}" alt="${mealData.title}" />
+                                <div>
+                                    <h4>${mealType.charAt(0).toUpperCase() + mealType.slice(1)}: ${mealData.title}</h4>
+                                    <p>Calories: ${mealData.calories}</p>
+                                    <p>Cost: $${mealData.cost}</p>
+                                    <a href="${recipeLink}" target="_blank">View Recipe</a>
+                                </div>
+                            `;
+                            daySection.appendChild(mealCard);
+                        }
+
+                        resultsDiv.appendChild(daySection);
                     }
 
-                    resultsDiv.appendChild(daySection);
-                }
+                    // Add Save Meal Plan button
+                    const saveButton = document.createElement("button");
+                    saveButton.id = "save-button";
+                    saveButton.textContent = "Save Meal Plan";
+                    saveButton.addEventListener("click", async () => {
+                        const planName = prompt("Enter a name for your meal plan:", "My Meal Plan");
 
-                // Add Save Meal Plan button
-                const saveButton = document.createElement("button");
-                saveButton.id = "save-button";
-                saveButton.textContent = "Save Meal Plan";
-                saveButton.addEventListener("click", () => {
-                    alert("Meal plan saved! Logic for saving will go here.");
-                });
-                resultsDiv.appendChild(saveButton);
-            } else {
-                resultsDiv.innerHTML = "<p>Could not generate meal plan. Try again!</p>";
+                        if (!planName) {
+                            alert("Plan name is required!");
+                            return;
+                        }
+
+                        console.log("Saving Meal Plan:", mealPlan);
+                        console.log("Plan Name:", planName);
+
+                        try {
+                            const saveResponse = await fetch("save_meal_plan.php", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                                body: `mealPlan=${encodeURIComponent(JSON.stringify(mealPlan))}&planName=${encodeURIComponent(planName)}`,
+                            });
+
+                            // Log raw response as text
+                            const rawResponse = await saveResponse.text();
+                            console.log("Raw Response:", rawResponse);
+
+                            const saveData = JSON.parse(rawResponse);
+                            console.log("Save Response:", saveData);
+
+                            if (saveData.success) {
+                                alert("Meal plan saved successfully!");
+                            } else {
+                                alert("Error saving meal plan: " + saveData.message);
+                            }
+                        } catch (error) {
+                            console.error("Error saving meal plan:", error);
+                        }
+                    });
+                    resultsDiv.appendChild(saveButton);
+                } else {
+                    resultsDiv.innerHTML = "<p>Could not generate meal plan. Try again!</p>";
+                }
+            } catch (error) {
+                console.error("Error fetching meal plan:", error);
             }
-        } catch (error) {
-            console.error("Error fetching meal plan:", error);
-        }
-    });
+        });
     </script>
 </body>
 </html>
