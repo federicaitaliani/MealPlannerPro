@@ -17,7 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             // User already exists
-            echo "Error: Username already exists. <a href='login.html'>Login here</a>";
+            echo "
+                <p>Error: Username already exists.</p>
+                <p>
+                    <a href='login.html'>Login here</a> or 
+                    <a href='register.html'>register with a different username</a>.
+                </p>
+            ";
         } else {
             // Insert the new user into the database
             $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
@@ -29,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     } else {
-        echo "Both username and password fields are required.";
+        echo "<p>Both username and password fields are required.</p>";
     }
 
     $conn->close(); // Close the database connection
