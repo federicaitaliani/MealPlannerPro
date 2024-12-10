@@ -5,8 +5,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include 'db.php';
-header('Content-Type: application/json');
+include 'db.php'; // Include your database connection
+header('Content-Type: application/json'); // Set content type as JSON
 
 // Database connection
 $userId = $_POST['user_id'] ?? null;
@@ -58,36 +58,7 @@ foreach ($mealPlans as $plan) {
     }
 }
 
-// Prepare the shopping list for display
-if (empty($shoppingList)) {
-    echo json_encode(['success' => false, 'message' => 'No ingredients found for this user.']);
-    exit();
-}
+// Return the shopping list as JSON
+echo json_encode(['success' => true, 'shoppingList' => $shoppingList]);
 
-$shoppingListHtml = "<ul>";
-foreach ($shoppingList as $ingredient => $quantity) {
-    $shoppingListHtml .= "<li>{$ingredient}: {$quantity} units</li>";
-}
-$shoppingListHtml .= "</ul>";
-
-// Render the shopping list page
-echo "<!DOCTYPE html>\n";
-echo "<html lang='en'>\n";
-echo "<head>\n";
-echo "    <meta charset='UTF-8'>\n";
-echo "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n";
-echo "    <title>Shopping List</title>\n";
-echo "    <style>\n";
-echo "        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; }\n";
-echo "        h1 { color: #333; }\n";
-echo "        ul { list-style-type: disc; padding-left: 20px; }\n";
-echo "        li { margin: 5px 0; }\n";
-echo "    </style>\n";
-echo "</head>\n";
-echo "<body>\n";
-echo "    <h1>Shopping List</h1>\n";
-echo "    <p>Below is the aggregated shopping list based on the meal plans:</p>\n";
-echo "    {$shoppingListHtml}\n";
-echo "</body>\n";
-echo "</html>\n";
 ?>
