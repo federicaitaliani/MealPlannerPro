@@ -1,15 +1,14 @@
 <?php
-session_start();
-include 'db.php'; // Include the database connection
+include 'db.php'; // Include the database connection file
 
-// Check if the form is submitted
+header('Content-Type: application/json'); // Ensure the response is JSON
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve and sanitize input
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
     if (!empty($username) && !empty($password)) {
-        // Sanitize inputs to prevent SQL injection
+        // Sanitize inputs
         $username = $conn->real_escape_string($username);
         $password = $conn->real_escape_string($password);
 
@@ -17,30 +16,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "SELECT id, password FROM users WHERE username = '$username'";
         $result = $conn->query($sql);
 
-        // Check if the user exists
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
 
-            // Since you're not hashing passwords, compare directly
+            // Compare passwords directly
             if ($password === $user['password']) {
-                // Store user ID and username in session
+                session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $username;
 
-                // Redirect to the dashboard
-                header("Location: index.html");
-                exit();
+                echo json_encode([
+                    "success" => true,
+                    "message" => "Login successful. Redirecting...",
+                    "redirect" => "index.html"
+                ]);
             } else {
-                echo "Invalid password. Please try again.";
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Invalid password. Please try again."
+                ]);
             }
         } else {
-            echo "Username not found. Please <a href='register.html'>register here</a>.";
+            echo json_encode([
+                "success" => false,
+                "message" => "Username not found. Please <a href='register.html'>register here</a>."
+            ]);
         }
     } else {
-        echo "Please fill in all fields.";
+        echo json_encode([
+            "success" => false,
+            "message" => "Both username and password fields are required."
+        ]);
     }
 
-    // Close the database connection
     $conn->close();
+} else {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid request method."
+    ]);
 }
-?>
