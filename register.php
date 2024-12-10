@@ -17,25 +17,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             // User already exists
-            echo "
-                <p>Error: Username already exists.</p>
-                <p>
-                    <a href='login.html'>Login here</a> or 
-                    <a href='register.html'>register with a different username</a>.
-                </p>
-            ";
+            echo json_encode([
+                "success" => false,
+                "message" => "Username already exists. <a href='login.html'>Login here</a>."
+            ]);
         } else {
             // Insert the new user into the database
             $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
 
             if ($conn->query($sql) === TRUE) {
-                echo "Registration successful! <a href='login.html'>Login here</a>";
+                echo json_encode([
+                    "success" => true,
+                    "message" => "Registration successful! <a href='login.html'>Login here</a>."
+                ]);
             } else {
-                echo "Error: " . $conn->error;
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Error: " . $conn->error
+                ]);
             }
         }
     } else {
-        echo "<p>Both username and password fields are required.</p>";
+        echo json_encode([
+            "success" => false,
+            "message" => "Both username and password fields are required."
+        ]);
     }
 
     $conn->close(); // Close the database connection
