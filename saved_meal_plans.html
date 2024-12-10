@@ -104,7 +104,7 @@
     </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", async function () {
+            document.addEventListener("DOMContentLoaded", async function () {
             try {
                 // Fetch meal plans from the server
                 const response = await fetch("fetch_meal_plans.php");
@@ -123,6 +123,16 @@
                         const planTitle = document.createElement("h3");
                         planTitle.textContent = plan.plan_name;
                         planBox.appendChild(planTitle);
+
+                        // Display the plan ID
+                        const planId = document.createElement("p");
+                        planId.textContent = "Plan ID: " + plan.id;
+                        planBox.appendChild(planId);
+
+                        // Display the user_id (fetched from the database for each meal plan)
+                        const userId = document.createElement("p");
+                        userId.textContent = "User ID: " + plan.user_id;
+                        planBox.appendChild(userId);
 
                         // Parse meal plan data
                         const mealData = JSON.parse(plan.meal_plan_data);
