@@ -233,7 +233,7 @@
         const formMessage = document.getElementById('form-message');
 
         registrationForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the form from refreshing the page
+            event.preventDefault(); // Prevent the default form submission
 
             const formData = new FormData(registrationForm);
 
@@ -244,16 +244,19 @@
                 });
 
                 const result = await response.json();
+                console.log('Server Response:', result); // Debugging
 
-                // Update the message and apply styling
-                formMessage.textContent = result.message;
+                // Inject the message, including the link, directly as HTML
+                formMessage.innerHTML = result.message;
+
+                // Apply success or error class for styling
                 formMessage.className = result.success ? 'success' : 'error';
 
                 if (result.success) {
                     registrationForm.reset(); // Clear form fields on success
                 }
             } catch (error) {
-                console.error('Error during registration:', error);
+                console.error('Error during registration:', error); // Debugging
                 formMessage.textContent = 'An unexpected error occurred. Please try again.';
                 formMessage.className = 'error';
             }
