@@ -96,6 +96,44 @@
         footer a:hover {
             text-decoration: underline;
         }
+                .top-nav {
+    background-color: white;
+    border-bottom: 1px solid #e4d426;
+    padding: 10px 0;
+    position: sticky; /* Makes it stick to the top */
+    top: 0;
+    z-index: 1000;  
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .logo {
+        height: 50px; 
+        margin-right: 20px;
+    }
+
+    nav a {
+        color:  #e4d426; /* Modern purple */
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 15px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover {
+        background-color: #e7e4ec;
+        color: white;
+    }
     </style>
 </head>
 <body>
