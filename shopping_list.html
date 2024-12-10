@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Include your existing styles -->
+</head>
+<body>
+    <header>
+        <h1>Your Shopping List</h1>
+        <p>All the groceries you need for your meal plan.</p>
+    </header>
+    <main>
+        <ul id="shopping-list">
+            <!-- Shopping list items will be dynamically populated here -->
+        </ul>
+        <button class="clear-button" onclick="clearList()">Clear List</button>
+        <button class="back-button" onclick="goBack()">Back to Planner</button>
+    </main>
+    <footer>
+        <p>Meal Planner &copy; 2024</p>
+    </footer>
+    <script>
+        // Fetch shopping list from the server
+        async function fetchShoppingList() {
+            try {
+                const response = await fetch('generate_shopping_list.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        recipes: ["Spaghetti", "Salad"] // Replace with dynamic selection
+                    }),
+                });
+                const shoppingList = await response.json();
+                const listElement = document.getElementById('shopping-list');
+                shoppingList.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    listElement.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching shopping list:', error);
+            }
+        }
+
+        // Clear list
+        function clearList() {
+            document.getElementById('shopping-list').innerHTML = '';
+        }
+
+        // Go back to planner
+        function goBack() {
+            window.location.href = 'meal_planner.php';
+        }
+
+        // Load shopping list on page load
+        fetchShoppingList();
+    </script>
+</body>
+</html>
