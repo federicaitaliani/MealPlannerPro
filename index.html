@@ -28,8 +28,8 @@
 
         /* Header */
         header {
-            background-color: #ffffff; 
-            color: #e4d426;
+            background-color: #ffffff; /* Modern purple background */
+            color:#e4d426;
             text-align: center;
             padding: 60px 0;
         }
@@ -43,10 +43,11 @@
         }
 
         header p {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 1.5rem; /* Increased font size */
+            font-weight: bold; /* Made text bold */
+            margin-bottom: 20px; /* Added more space below the paragraph */
         }
+
 
         /* Main Content */
         main {
@@ -104,9 +105,90 @@
         }
 
         .feature-button a:hover {
-            background-color: #d4c123;
+            background-color: #e4d426;
         }
 
+        #meal-plan-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        #meal-plan-form form {
+            display: grid;
+            grid-gap: 15px;
+        }
+
+        #meal-plan-form label {
+            font-size: 1.1rem;
+        }
+
+        #meal-plan-form input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #meal-plan-form button {
+            background-color: #e4d426;
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #meal-plan-form button:hover {
+            background-color: #e4d426;
+        }
+
+        #meal-plan-results {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .meal-card {
+            flex: 1 1 calc(33.33% - 20px);
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .meal-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .meal-card h3 {
+            color: #6a4c9c;
+            margin-bottom: 10px;
+        }
+
+        .meal-card a {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #6a4c9c;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .meal-card a:hover {
+            background-color:  #e4d426;
+        }
+
+        /* Footer */
         footer {
             background-color: #333;
             color: white;
@@ -122,6 +204,76 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+
+        .top-nav {
+    background-color: white;
+    border-bottom: 1px solid #e4d426;
+    padding: 10px 0;
+    position: sticky; /* Makes it stick to the top */
+    top: 0;
+    z-index: 1000;  
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .logo {
+        height: 50px; /* Adjust as needed */
+        margin-right: 20px;
+    }
+
+    nav a {
+        color:  #e4d426; /* Modern purple */
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 15px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover {
+        background-color: #e7e4ec;
+        color: white;
+    }
+
+
+        .kiwi {
+        width: 100%; /* Match the width of the container */
+        height: 300px; /* Adjust height as needed */
+        object-fit: cover; /* Ensure the image is cropped to fit the area */
+        object-position: center; /* Center the image horizontally */
+        display: block; /* Ensures no extra spaces appear around the image */
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            background-color: rgb(105, 170, 62); /* Updated button background color */
+            color:  #e4d426; /* Updated button text color */
+            font-size: 1.2rem; /* Made button text bigger */
+            font-weight: bold; /* Made button text bold */
+            padding: 15px 30px; /* Increased button padding */
+            border: none;
+            border-radius: 10px; /* Slightly curved corners */
+            text-decoration: none; /* Removed underline */
+            cursor: pointer; /* Pointer cursor */
+            margin-top: 20px; /* Added margin to move the button down */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+        }
+
+    .learn-more-btn:hover {
+        background-color: #333; /* Darker shade on hover */
+        color: white; /* Change text color on hover */
+        transform: translateY(-5px); /* Slight hover effect */
+    }
     </style>
 </head>
 <body>
@@ -129,9 +281,9 @@
         <div class="nav-container">
             <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
             <nav>
-                <a href="generate_meal_plan.html">PLANNING</a>
-                <a href="meal_plans.html">SAVED PLANS</a>
-                <a href="about.html">ABOUT</a>
+                <a href="gen.html">PLANNING</a>
+                <a href="recipe_suggestions.html">RECIPES</a>
+                <a href="shopping_list.html">SHOPPING</a>
             </nav>
         </div>
     </div>
@@ -142,7 +294,7 @@
         <div class="container">
             <h1>Design & Dine</h1>
             <p>Discover the ultimate platform to transform your lifestyle. From tailored meal plans to mouthwatering dishes, we make healthy eating affordable and easy—just for you.</p>
-            <a href="generate_meal_plan.html" class="learn-more-btn">Generate Your Meal Plan</a>
+            <a href="gen.html" class="learn-more-btn">Generate Your Meal Plan</a>
         </div>
     </header>
 
@@ -153,22 +305,21 @@
                 <div class="feature-button">
                     <h3>Meal Planning</h3>
                     <p>Generate custom meal plans tailored to your dietary preferences and calorie goals.</p>
-                    <a href="generate_meal_plan.html">Get Started</a>
+                    <a href="gen.html">Get Started</a>
                 </div>
                 <div class="feature-button">
-                    <h3>Saved Meal Plans</h3>
-                    <p>View and manage your saved meal plans to keep your lifestyle on track.</p>
-                    <a href="meal_plans.html">View Saved Plans</a>
+                    <h3>Recipe Suggestions</h3>
+                    <p>Discover new recipes based on your preferences and ingredients you already have.</p>
+                    <a href="recipe_suggestions.html">Explore Recipes</a>
                 </div>
                 <div class="feature-button">
-                    <h3>About</h3>
-                    <p>Learn more about Design&Dine and our mission to make healthy eating simple and accessible.</p>
-                    <a href="about.html">Learn More</a>
+                    <h3>Shopping List Generator</h3>
+                    <p>Create an efficient shopping list based on your meal plan to make shopping a breeze.</p>
+                    <a href="shopping_list.html">Create Shopping List</a>
                 </div>
             </section>
         </div>
     </main>
-
     <!-- Login/Register Section -->
     <div style="background-color: #333; color: white; text-align: center; padding: 20px;">
         <p>
@@ -177,7 +328,6 @@
             <a href="register.html" style="color: #e4d426; text-decoration: none; font-weight: bold; margin-left: 15px;">Register</a>
         </p>
     </div>
-
     <!-- Footer Section -->
     <footer>
         <div class="container">
