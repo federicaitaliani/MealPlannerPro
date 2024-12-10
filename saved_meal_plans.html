@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Meal Plans</title>
+    <style>
+        /* General styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background-color: #e4d426;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            color: #e4d426;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        header h1 {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .meal-plan {
+            background-color: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .meal-plan h3 {
+            font-size: 2rem;
+            color: #e4d426;
+            margin-bottom: 10px;
+        }
+
+        .schedule {
+            margin-top: 20px;
+        }
+
+        .schedule h4 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #444;
+        }
+
+        .schedule ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .schedule ul li {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Saved Meal Plans</h1>
+            <p>View your saved meal plans for the week.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container" id="meal-plans-container">
+            <!-- Meal plans will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                // Fetch meal plans from the server
+                const response = await fetch("fetch_meal_plans.php");
+                const data = await response.json();
+
+                const container = document.getElementById("meal-plans-container");
+
+                if (data.success && data.mealPlans.length > 0) {
+                    const mealPlans = data.mealPlans;
+
+                    mealPlans.forEach(plan => {
+                        const planBox = document.createElement("div");
+                        planBox.classList.add("meal-plan");
+
+                        // Plan title
+                        const planTitle = document.createElement("h3");
+                        planTitle.textContent = plan.plan_name;
+                        planBox.appendChild(planTitle);
+
+                        // Parse meal plan data
+                        const mealData = JSON.parse(plan.meal_plan_data);
+                        const schedule = document.createElement("div");
+                        schedule.classList.add("schedule");
+
+                        // Weekly schedule
+                        for (const [day, meals] of Object.entries(mealData)) {
+                            const dayHeading = document.createElement("h4");
+                            dayHeading.textContent = day;
+                            schedule.appendChild(dayHeading);
+
+                            const mealList = document.createElement("ul");
+                            meals.forEach(meal => {
+                                const mealItem = document.createElement("li");
+                                mealItem.textContent = meal;
+                                mealList.appendChild(mealItem);
+                            });
+
+                            schedule.appendChild(mealList);
+                        }
+
+                        planBox.appendChild(schedule);
+                        container.appendChild(planBox);
+                    });
+                } else {
+                    // Display a message if no meal plans are found
+                    const emptyMessage = document.createElement("p");
+                    emptyMessage.classList.add("empty-message");
+                    emptyMessage.textContent = "No saved meal plans found.";
+                    container.appendChild(emptyMessage);
+                }
+            } catch (error) {
+                console.error("Error fetching meal plans:", error);
+                alert("There was an error loading your saved meal plans.");
+            }
+        });
+    </script>
+</body>
+</html>
 
