@@ -19,8 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows > 0) {
             echo json_encode([
                 "success" => false,
-                "message" => "Username already exists. Please log in.",
-                "login_url" => "login.html"
+                "message" => "Username already exists. <a href='login.html'>Login here</a>.",
             ]);
         } else {
             // Register the user
