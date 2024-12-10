@@ -254,6 +254,20 @@
         display: block; 
         }
 
+        .kiwi-container {
+            position: relative; /* Make the container a positioning context */
+        }
+
+        .kiwi-text {
+            position: absolute;  /* Use absolute positioning to position relative to the container */
+            top: 20px;           /* Distance from the top of the container */
+            right: -100px;         /* Distance from the right of the container (increases the distance from the right edge) */
+            color: white;        /* White text */
+            font-size: 2rem;     /* Adjust font size */
+            font-weight: bold;   /* Bold font */
+            text-shadow: 2px 2px 5px black;  /* Black shadow for text */
+        }
+
         .learn-more-btn {
             display: inline-block;
             background-color: rgb(105, 170, 62); 
@@ -274,6 +288,29 @@
         color: white; 
         transform: translateY(-5px); 
     }
+
+
+    .logo-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-center img {
+            max-width: 1000px; /* Makes the logo larger here */
+            height: auto; /* Maintains aspect ratio */
+            margin-bottom: -40px; /* Adds spacing below the logo */
+            margin-left: 80px;
+            margin-right: 0;
+        }
+
+
+
+
+
+
+    
     </style>
 </head>
 <body>
@@ -290,36 +327,22 @@
 
     <!-- Header Section -->
     <header>
-        <img src="kiwi.jpg" alt="Kiwi Image" class="kiwi">
+
+
+        <div class="kiwi-container">
+            <img src="kiwi.jpg" alt="Kiwi Image" class="kiwi">
+            <div class="kiwi-text">Quick, delicious meals made easy! Get personalized recipes, full instructions, and grocery lists—based on what you have at home. Meal prep has never been this simple!</div>
+        </div>
         <div class="container">
-            <h1>Design & Dine</h1>
-            <p>Discover the ultimate platform to transform your lifestyle. From tailored meal plans to mouthwatering dishes, we make healthy eating affordable and easy—just for you.</p>
+            <div class="logo-center">
+                <img src="logo.jpg" alt="Design&Dine Logo">
+            </div>
+        
             <a href="gen.html" class="learn-more-btn">Generate Your Meal Plan</a>
         </div>
     </header>
 
-    <!-- Main Content Section -->
-<!--     <main>
-        <div class="container">
-            <section id="feature-buttons">
-                <div class="feature-button">
-                    <h3>Meal Planning</h3>
-                    <p>Generate custom meal plans tailored to your dietary preferences and calorie goals.</p>
-                    <a href="gen.html">Get Started</a>
-                </div>
-                <div class="feature-button">
-                    <h3>Saved Meal Plans</h3>
-                    <p>Access your old Meal Plans.</p>
-                    <a href="meal_plans.html">Saved Plans</a>
-                </div>
-                <div class="feature-button">
-                    <h3>About</h3>
-                    <p>Learn more about all the information we can provide you.</p>
-                    <a href="about.html">Create Shopping List</a>
-                </div>
-            </section>
-        </div>
-    </main> -->
+
     <!-- Login/Register Section -->
     <div style="background-color: #333; color: white; text-align: center; padding: 20px;">
         <p>
@@ -336,3 +359,4 @@
     </footer>
 </body>
 </html>
+
