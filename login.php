@@ -56,3 +56,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "message" => "Invalid request method."
     ]);
 }
+?>
