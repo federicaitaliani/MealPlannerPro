@@ -139,41 +139,52 @@
     <script>
         document.getElementById("recipe-form").addEventListener("submit", function (e) {
             e.preventDefault();
-
+    
             const mealType = encodeURIComponent(document.getElementById("mealType").value);
             const health = encodeURIComponent(document.getElementById("health").value);
             const include = encodeURIComponent(document.getElementById("include").value);
             const exclude = encodeURIComponent(document.getElementById("exclude").value);
-
-            const url = `fetch_recipes.php?mealType=${mealType}&health=${health}&include=${include}&exclude=${exclude}`;
-
+    
+            // Add timestamp to avoid caching
+            const url = `fetch_recipes.php?mealType=${mealType}&health=${health}&include=${include}&exclude=${exclude}&_ts=${Date.now()}`;
+    
             const resultsDiv = document.getElementById("results");
             resultsDiv.innerHTML = "<p>Loading...</p>";
-
+    
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     resultsDiv.innerHTML = "";
-
-                    console.log("Full Results from API:", data.hits);
-
+    
+                    console.log("API Raw Results:", data.hits); // Debugging
+    
                     if (data.hits && data.hits.length > 0) {
-                        const shuffledResults = data.hits.sort(() => 0.5 - Math.random());
-                        const selectedResults = shuffledResults.slice(0, 10);
-
-                        console.log("Randomly Selected Results for Display:", selectedResults);
-
-                        selectedResults.forEach(hit => {
+                        data.hits.forEach(hit => {
                             const recipe = hit.recipe;
+                            const calories = Math.round(recipe.calories) || 'N/A';
+                            const protein = recipe.totalNutrients.PROCNT?.quantity
+                                ? `${Math.round(recipe.totalNutrients.PROCNT.quantity)} ${recipe.totalNutrients.PROCNT.unit}`
+                                : 'N/A';
+                            const fat = recipe.totalNutrients.FAT?.quantity
+                                ? `${Math.round(recipe.totalNutrients.FAT.quantity)} ${recipe.totalNutrients.FAT.unit}`
+                                : 'N/A';
+                            const carbs = recipe.totalNutrients.CHOCDF?.quantity
+                                ? `${Math.round(recipe.totalNutrients.CHOCDF.quantity)} ${recipe.totalNutrients.CHOCDF.unit}`
+                                : 'N/A';
+                            const prepTime = recipe.totalTime ? `${recipe.totalTime} mins` : 'N/A';
+    
                             const mealDiv = document.createElement("div");
                             mealDiv.classList.add("meal");
                             mealDiv.innerHTML = `
                                 <img src="${recipe.image}" alt="${recipe.label}">
                                 <div class="meal-info">
                                     <h3>${recipe.label}</h3>
-                                    <p>Calories: ${Math.round(recipe.calories)} kcal</p>
-                                    <p>Servings: ${recipe.yield}</p>
-                                    <button onclick="saveToFavorites('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')}, '${recipe.image}', '${recipe.url}')">
+                                    <p>Calories: ${calories}</p>
+                                    <p>Protein: ${protein}</p>
+                                    <p>Fat: ${fat}</p>
+                                    <p>Carbs: ${carbs}</p>
+                                    <p>Prep Time: ${prepTime}</p>
+                                    <button onclick="saveToFavorites('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')}, '${recipe.image}', '${recipe.url}', ${calories}, '${protein}', '${fat}', '${carbs}', '${prepTime}')">
                                         Save to Favorites
                                     </button>
                                     <button onclick="addToShoppingList('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
@@ -192,16 +203,24 @@
                     resultsDiv.innerHTML = "<p>Error loading recipes. Please try again later.</p>";
                 });
         });
-
-        function saveToFavorites(mealName, ingredients, image, url) {
-            console.log("Data sent to save_favorites.php:", { name: mealName, ingredients, image, url });
-
+    
+        function saveToFavorites(mealName, ingredients, image, url, calories, protein, fat, carbs, prepTime) {
             fetch('save.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name: mealName, ingredients, image, url }),
+                body: JSON.stringify({
+                    name: mealName,
+                    ingredients,
+                    image,
+                    url,
+                    calories,
+                    protein,
+                    fat,
+                    carbs,
+                    prep_time: prepTime,
+                }),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -216,7 +235,7 @@
                     alert("An error occurred while saving to favorites.");
                 });
         }
-
+    
         function addToShoppingList(mealName, ingredients) {
             fetch('add.php', {
                 method: 'POST',
@@ -239,5 +258,6 @@
                 });
         }
     </script>
+    
 </body>
 </html>
