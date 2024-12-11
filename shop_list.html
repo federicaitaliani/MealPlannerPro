@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping List</title>
@@ -12,42 +9,89 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             font-family: 'Glacial Indifference', sans-serif;
             background-color: #e4d426;
             color: #333;
             line-height: 1.6;
         }
-
         .container {
+            max-width: 800px;
+            margin: 20px auto;
             width: 80%;
             max-width: 1200px;
             margin: 40px auto;
             padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
         h1 {
             font-size: 2.5rem;
             text-align: center;
+            color: #444;
             color: #333;
             margin-bottom: 30px;
         }
-
-        ul {
+        #shopping-list {
+            margin-top: 20px;
+        }
+        .meal {
+            padding: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .meal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        .meal h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .meal .ingredients {
+            margin-top: 10px;
+        .meal button {
+            display: inline-block;
+            background-color: #e4d426;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .meal button:hover {
+            background-color: darkgreen;
+        }
+        .ingredients {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fefefe;
+            border-radius: 5px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .ingredients ul {
             list-style-type: disc;
             padding-left: 20px;
+            color: #666;
         }
-
-        li {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #444;
-        }
-
         footer {
             text-align: center;
             padding: 20px 0;
@@ -55,19 +99,16 @@
             color: #fff;
             margin-top: 40px;
         }
-
         footer a {
             color: #f1f1f1;
             text-decoration: none;
         }
-
         footer a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
-<body>
-    <div class="container">
+@@ -43,35 +115,38 @@
         <h1>Your Shopping List</h1>
         <div id="shopping-list"></div>
     </div>
@@ -75,28 +116,34 @@
         <p>&copy; 2024 Design&Dine. All rights reserved.</p>
     </footer>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('get_shopping_list.php')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('shopping-list');
-                    if (data.success && data.ingredients) {
-                        const ul = document.createElement('ul');
+        function toggleIngredients(id) {
+            const el = document.getElementById(`ingredients-${id}`);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
 
-                        // Display aggregated ingredients
-                        Object.keys(data.ingredients).forEach(ingredient => {
-                            const li = document.createElement('li');
-                            li.textContent = `${data.ingredients[ingredient]} ${ingredient}`;
-                            ul.appendChild(li);
-                        });
-
-                        container.appendChild(ul);
-                    } else {
-                        container.innerHTML = "<p>No items in your shopping list.</p>";
-                    }
-                })
-                .catch(error => console.error("Error loading shopping list:", error));
-        });
+        // Fetch shopping list
+        fetch('get_shopping_list.php')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('shopping-list');
+                if (data.success && data.meals.length > 0) {
+                    data.meals.forEach((meal, index) => {
+                        const mealDiv = document.createElement('div');
+                        mealDiv.classList.add('meal');
+                        mealDiv.innerHTML = `
+                            <h3>${meal.meal_name}</h3>
+                            <button onclick="toggleIngredients(${index})">View Ingredients</button>
+                            <div id="ingredients-${index}" class="ingredients">
+                                <ul>${meal.ingredients.map(ing => `<li>${ing}</li>`).join('')}</ul>
+                            </div>
+                        `;
+                        container.appendChild(mealDiv);
+                    });
+                } else {
+                    container.innerHTML = "<p>No items in your shopping list.</p>";
+                }
+            })
+            .catch(error => console.error("Error loading shopping list:", error));
     </script>
 </body>
 </html>
