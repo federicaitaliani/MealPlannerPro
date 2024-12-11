@@ -113,30 +113,28 @@
             color: white;
         }
 
-        /* Footer */
+         /* Footer */
         footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 20px 0;
-            margin-top: 30px;
         }
 
         footer a {
-            color: #e4d426;
+            color: #f1f1f1;
             text-decoration: none;
-            font-weight: bold;
         }
 
         footer a:hover {
             text-decoration: underline;
         }
 
-        /* Navigation */
+        /* Navbar */
         .top-nav {
-            background-color: white;
+            background-color: #ffffff;
             border-bottom: 1px solid #e4d426;
-            padding: 10px 0;
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -151,8 +149,14 @@
             padding: 0 20px;
         }
 
+        .logo {
+            height: 80px;  /* Reduced size of the logo */
+            margin-right: 20px;  /* Space between logo and navigation links */
+            margin-left: 0;  /* Align logo to the left */
+        }
+
         nav a {
-            color: #e4d426;
+            color: #6a9a3c;  /* Earthy green */
             text-decoration: none;
             font-size: 1rem;
             font-weight: bold;
@@ -163,7 +167,7 @@
         }
 
         nav a:hover {
-            background-color: #e7e4ec;
+            background-color: #e4d426;
             color: white;
         }
 
@@ -301,9 +305,9 @@
                 <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
             </a>
             <nav>
-                <a href="index.html">HOME</a>
+                <a href="gen-meals.html">FIND RECIPES</a>
+                <a href="meal_plans.html">SAVED MEAL PLANS</a>
                 <a href="about.html">ABOUT</a>
-                <a href="login.html">LOG IN</a>
             </nav>
         </div>
     </div>
@@ -361,8 +365,17 @@
         </div>
     </div>
     
-    <footer>
-        <p>&copy; 2024 My Website | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+   <footer>
+        <div class="container">
+            <!-- Login and Register links above the Contact Us line -->
+            <div style="margin-bottom: 10px; text-align: center;">
+                <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
+                <a href="register.html" style="color:  rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
+            </div>
+            <p>&copy; 2024 Design&Dine. All rights reserved. 
+                | <a href="mailto:support@designdine.com">Contact Us</a> 
+            </p>
+        </div>
     </footer>
 
     <script>
