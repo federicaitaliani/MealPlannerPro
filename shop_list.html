@@ -180,29 +180,45 @@ nav a:hover {
             el.style.display = el.style.display === 'none' ? 'block' : 'none';
         }
 
-        // Fetch shopping list
-        fetch('get_shopping_list.php')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('shopping-list');
-                if (data.success && data.meals.length > 0) {
-                    data.meals.forEach((meal, index) => {
-                        const mealDiv = document.createElement('div');
-                        mealDiv.classList.add('meal');
-                        mealDiv.innerHTML = `
-                            <h3>${meal.meal_name}</h3>
-                            <button onclick="toggleIngredients(${index})">View Ingredients</button>
-                            <div id="ingredients-${index}" class="ingredients">
-                                <ul>${meal.ingredients.map(ing => `<li>${ing}</li>`).join('')}</ul>
-                            </div>
-                        `;
-                        container.appendChild(mealDiv);
-                    });
-                } else {
-                    container.innerHTML = "<p>No items in your shopping list.</p>";
-                }
-            })
-            .catch(error => console.error("Error loading shopping list:", error));
+// Fetch shopping list
+fetch('get_shopping_list.php')
+    .then(response => response.json())
+    .then(data => {
+        const container = document.getElementById('shopping-list');
+        if (data.success && data.meals.length > 0) {
+            data.meals.forEach((meal, index) => {
+                const mealDiv = document.createElement('div');
+                mealDiv.classList.add('meal');
+                
+                // Create the ingredients div
+                const ingredientsDiv = document.createElement('div');
+                ingredientsDiv.id = `ingredients-${index}`;
+                ingredientsDiv.classList.add('ingredients');
+                ingredientsDiv.style.display = 'none'; // Set to 'none' initially
+                
+                // Populate the ingredients list
+                const ul = document.createElement('ul');
+                meal.ingredients.forEach(ingredient => {
+                    const li = document.createElement('li');
+                    li.textContent = ingredient;
+                    ul.appendChild(li);
+                });
+                ingredientsDiv.appendChild(ul);
+
+                // Populate the meal div
+                mealDiv.innerHTML = `
+                    <h3>${meal.meal_name}</h3>
+                    <button onclick="toggleIngredients(${index})">View Ingredients</button>
+                `;
+                mealDiv.appendChild(ingredientsDiv); // Append the ingredients div
+                
+                container.appendChild(mealDiv);
+            });
+        } else {
+            container.innerHTML = "<p>No items in your shopping list.</p>";
+        }
+    })
+    .catch(error => console.error("Error loading shopping list:", error));
     </script>
 </body>
 </html>
