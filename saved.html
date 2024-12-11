@@ -109,8 +109,7 @@
                                 <h3>${meal.name}</h3>
                                 <button onclick="toggleMoreInfo(${meal.id})">More Info</button>
                                 <button onclick="toggleIngredients(${meal.id})">Ingredients</button>
-                                <button <a href="${meal.url}" target="_blank" class="button-link">Recipe</a>
-                                </button>
+                                <a href="${meal.url}" target="_blank" class="button-link">Recipe</a>
                                 <div id="more-info-${meal.id}" class="more-info">
                                     <ul>
                                         <li><strong>Calories:</strong> ${meal.calories || "N/A"}</li>
