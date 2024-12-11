@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference&display=swap" rel="stylesheet">
+
     <title>Design&Dine</title>
     <style>
         /* General Reset */
@@ -28,7 +30,7 @@
 
         /* Header */
         header {
-            background-color: #ffffff; /* Modern purple background */
+            background-color: #ffffff; 
             color:#e4d426;
             text-align: center;
             padding: 60px 0;
@@ -206,7 +208,7 @@
         }
 
 
-        .top-nav {
+    .top-nav {
     background-color: white;
     border-bottom: 1px solid #e4d426;
     padding: 10px 0;
@@ -222,6 +224,7 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
+      
     }
 
     .logo {
@@ -270,7 +273,7 @@
 
         .learn-more-btn {
             display: inline-block;
-            background-color: rgb(105, 170, 62); 
+            background-color:darkgreen;
             color:  #e4d426; 
             font-size: 1.2rem; 
             font-weight: bold; 
@@ -305,7 +308,24 @@
             margin-right: 0;
         }
 
-
+      .call_to_action{
+        width: 80%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    
+      }
+      
+      .call_to_action p {
+        font-family: 'Glacial Indifference', sans-serif; /* Ensure the font family is applied */
+        color: darkgreen; /* Text color */
+        font-size: 50px; /* Adjust the size of the text */
+        line-height: 1.5; /* Improve readability with line spacing */
+        letter-spacing: 1px; /* Add space between letters */
+        text-transform: uppercase; /* Make the text uppercase for a bold look */
+      
+      
+    }
 
 
 
@@ -327,11 +347,13 @@
 
     <!-- Header Section -->
     <header>
+        <div class="call_to_action">
+                 <p>Get personalized recipes based on what you have at home!</p>
 
-
+                
+        </div>
         <div class="kiwi-container">
             <img src="kiwi.jpg" alt="Kiwi Image" class="kiwi">
-            <div class="kiwi-text">Quick, delicious meals made easy! Get personalized recipes, full instructions, and grocery lists—based on what you have at home. Meal prep has never been this simple!</div>
         </div>
         <div class="container">
             <div class="logo-center">
@@ -339,7 +361,6 @@
             </div>
         
             <a href="gen.html" class="learn-more-btn">Generate Your Meal Plan</a>
-            <a href="shoppinglist.php" class="learn-more-btn">View Your Shopping List</a>
         </div>
     </header>
 
