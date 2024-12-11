@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
     <title>Design&Dine</title>
     <style>
         /* General Reset */
@@ -79,11 +80,22 @@
             text-align: center;
         }
 
-        /* New class for the logo below the image */
-        .hero-logo {
-            display: block;
-            margin: 20px auto;  /* Centering the logo with margin */
-            width: 150px;  /* Adjust the size if needed */
+        /* Food Icons */
+        .hero-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;  /* Space between the icons */
+            margin-top: 20px;  /* Space between the text and icons */
+        }
+
+        .food-icon {
+            font-size: 3rem;  /* Size of each icon */
+            color: #6a9a3c;  /* Green color for icons */
+            transition: transform 0.3s ease;  /* Optional: add animation on hover */
+        }
+
+        .food-icon:hover {
+            transform: scale(1.1);  /* Optional: add scaling effect on hover */
         }
 
         /* Features Section */
@@ -215,8 +227,14 @@
             <div class="hero-text">
                 <h2>Transform Your Ingredients into Delicious Meals</h2>
             </div>
-            <!-- Move the logo here below the kiwi image -->
-            <img src="logo.jpg" alt="Design&Dine Logo" class="hero-logo">
+            <!-- Food icons replacing the logo -->
+            <div class="hero-icons">
+                <i class="fas fa-apple-alt food-icon"></i>
+                <i class="fas fa-carrot food-icon"></i>
+                <i class="fas fa-utensils food-icon"></i>
+                <i class="fas fa-bread-slice food-icon"></i>
+                <i class="fas fa-drumstick-bite food-icon"></i>
+            </div>
         </div>
     </header>
         
