@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php'; // Include database connection
+include 'db.php'; // Database connection
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -9,15 +9,14 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$data = json_decode(file_get_contents('php://input'), true); // Get JSON input
+$data = json_decode(file_get_contents('php://input'), true);
 
 // Validate inputs
-if (empty($data['mealName']) || empty($data['ingredients']) || !is_array($data['ingredients'])) {
+if (empty($data['mealName']) || empty($data['ingredients'])) {
     echo json_encode(["success" => false, "message" => "Invalid input."]);
     exit();
 }
 
-// Serialize ingredients to JSON
 $mealName = $conn->real_escape_string($data['mealName']);
 $ingredients = $conn->real_escape_string(json_encode($data['ingredients']));
 
