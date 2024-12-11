@@ -106,42 +106,48 @@
             text-decoration: underline;
         }
 
-        .top-nav {
-            background-color: white;
-            border-bottom: 1px solid #28a745; /* Green border */
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        
+        
 
         .logo {
             height: 50px;
         }
 
+         .top-nav {
+        background-color: white;
+        border-bottom: 1px solid #e4d426;
+        padding: 10px 0;
+        position: sticky; /* Makes it stick to the top */
+        top: 0;
+        z-index: 1000;  
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        
+        }
+
         nav a {
-            color: #28a745; /* Green */
-            text-decoration: none;
-            font-size: 1rem;
-            margin: 0 15px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
+        color:  #e4d426; /* Modern purple */
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 15px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         nav a:hover {
             background-color: #e7e4ec;
             color: white;
         }
+
 
         /* "What We Offer" Section Styling */
         .offer-list {
@@ -188,7 +194,7 @@
                 <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
             </a>
             <nav>
-                <a href="gen-meals.html">PLANNING</a>
+                <a href="gen.html">PLANNING</a>
                 <a href="meal_plans.html">SAVED MEAL PLANS</a>
                 <a href="about.html">ABOUT</a>
             </nav>
@@ -242,3 +248,4 @@
 
 </body>
 </html>
+
