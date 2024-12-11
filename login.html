@@ -31,7 +31,6 @@
             color: #28a745;
             text-align: center;
             padding: 60px 0;
-            padding: 60px 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
@@ -50,17 +49,15 @@
             margin-bottom: 20px;
             text-align: center;
             color: #28a745;
-            color: #333;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
         }
-
 
         /* Login Form Styling */
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* Stack the elements vertically */
+            flex-direction: column;
             min-height: 70vh;
         }
 
@@ -122,7 +119,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            margin-top: 20px; /* Added space between login and register section */
+            margin-top: 20px;
             text-align: center;
         }
 
@@ -140,7 +137,6 @@
 
         .register-box a:hover {
             color:#28a745;
-
         }
 
         .register-box button {
@@ -161,7 +157,7 @@
             color: white;
         }
 
-       /* Footer */
+        /* Footer */
         footer {
             background-color: #333;
             color: white;
@@ -198,13 +194,12 @@
         }
 
         .logo {
-            height: 80px;  /* Reduced size of the logo */
-            margin-right: 20px;  /* Space between logo and navigation links */
-            margin-left: 0;  /* Align logo to the left */
+            height: 80px;
+            margin-right: 20px;
         }
 
         nav a {
-            color: #6a9a3c;  /* Earthy green */
+            color: #6a9a3c;
             text-decoration: none;
             font-size: 1rem;
             font-weight: bold;
@@ -220,17 +215,17 @@
         }
 
         /* Dynamic Message Styling */
-        #form-message {
+        #login-message {
             margin-top: 15px;
             font-size: 1rem;
             text-align: center;
         }
 
-        #form-message.success {
+        #login-message.success {
             color: green;
         }
 
-        #form-message.error {
+        #login-message.error {
             color: red;
         }
     </style>
@@ -247,13 +242,14 @@
                 <a href="shop_list.html">CART</a>
                 <a href="about.html">ABOUT</a>
             </nav>
-
         </div>
     </div>
+
     <header>
         <h1>Welcome to Design&Dine</h1>
         <p>We offer personalized meal ideas based on your diet and pantry, plus a shopping list to simplify your cooking.</p>
     </header>
+
     <div class="login-container">
         <div class="login-box">
             <h2>Login</h2>
@@ -264,28 +260,26 @@
                 <input type="password" id="password" name="password" required>
                 <button type="submit">Login</button>
             </form>
-            <div id="login-message" style="margin-top: 15px; font-size: 1rem; font-weight: bold;"></div>
+            <div id="login-message"></div> <!-- Message displayed after login attempt -->
         </div>
 
-        <!-- Register section now below the login form -->
         <div class="register-box">
             <p>Don't have an account? <a href="register.html">Create One Now!</a></p>
             <button onclick="window.location.href='register.html'">Register</button>
         </div>
     </div>
 
-   <footer>
-    <div class="container">
-        <!-- Login and Register links above the Contact Us line -->
-        <div style="margin-bottom: 10px; text-align: center;">
-            <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
-            <a href="register.html" style="color:  rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 10px; text-align: center;">
+                <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
+                <a href="register.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
+            </div>
+            <p>&copy; 2024 Design&Dine. All rights reserved. 
+                | <a href="mailto:support@designdine.com">Contact Us</a>
+            </p>
         </div>
-        <p>&copy; 2024 Design&Dine. All rights reserved. 
-            | <a href="mailto:support@designdine.com">Contact Us</a> 
-        </p>
-    </div>
-</footer>
+    </footer>
 
     <script>
         document.getElementById('login-form').addEventListener('submit', async function (event) {
