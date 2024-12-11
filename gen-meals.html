@@ -88,21 +88,17 @@
             margin: 0 0 10px;
         }
 
-        .meal-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .meal-actions button {
+        .meal-info button {
+            margin: 5px 0;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px;
             background: #007bff;
             color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
             cursor: pointer;
         }
 
-        .meal-actions button:hover {
+        .meal-info button:hover {
             background: #0056b3;
         }
     </style>
@@ -164,19 +160,19 @@
                             const mealDiv = document.createElement("div");
                             mealDiv.classList.add("meal");
                             mealDiv.innerHTML = `
-                            <img src="${recipe.image}" alt="${recipe.label}">
-                            <div class="meal-info">
-                                <h3>${recipe.label}</h3>
-                                <p>Calories: ${Math.round(recipe.calories)} kcal</p>
-                                <p>Servings: ${recipe.yield}</p>
-                                <button onclick="viewIngredients(${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
-                                    View Ingredients
-                                </button>
-                                <button onclick="addToShoppingList('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
-                                    Add to Shopping List
-                                </button>
-                            </div>
-                        `;
+                                <img src="${recipe.image}" alt="${recipe.label}">
+                                <div class="meal-info">
+                                    <h3>${recipe.label}</h3>
+                                    <p>Calories: ${Math.round(recipe.calories)} kcal</p>
+                                    <p>Servings: ${recipe.yield}</p>
+                                    <button onclick="saveToFavorites('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')}, '${recipe.image}', '${recipe.url}')">
+                                        Save to Favorites
+                                    </button>
+                                    <button onclick="addToShoppingList('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
+                                        Add to Shopping List
+                                    </button>
+                                </div>
+                            `;
                             resultsDiv.appendChild(mealDiv);
                         });
                     } else {
@@ -189,30 +185,30 @@
                 });
         });
 
-        function viewIngredients(ingredients) {
-            alert("Ingredients:\n" + ingredients.join("\n"));
-        }
-
-        function saveMeal(name, image, url, ingredients) {
-        console.log({ name, image, url, ingredients }); // Debugging
-        fetch('save.php', {
+        function saveToFavorites(mealName, ingredients, image, url) {
+            fetch('save.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, image, url, ingredients: ingredients.join(', ') })
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: mealName, ingredients, image, url }),
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Meal saved successfully!');
-                } else {
-                    alert('Failed to save meal. ' + (data.message || ''));
-                }
-            })
-            .catch(error => console.error('Error saving meal:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Meal saved to favorites!");
+                    } else {
+                        alert("Failed to save meal: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error saving to favorites:", error);
+                    alert("An error occurred while saving to favorites.");
+                });
         }
 
         function addToShoppingList(mealName, ingredients) {
-            fetch('add_to_shopping_list.php', {
+            fetch('add.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
