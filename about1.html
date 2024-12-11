@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Design&Dine</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5F5; /* Light gray for background */
+            color: #333;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #fbe491af; /* Yellow */
+            background-image: url('aboutusbanner.jpg'); /* Replace with your banner image URL */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            box-shadow: 0 4px 15px rgba(132, 29, 29, 0.1);
+            position: relative;
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 3.5rem;
+            color: #698710;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 4px 4px 5px rgba(212, 165, 46, 0.896);
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        h2 {
+            color: #6A9A3C; /* Green */
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .about-image {
+            max-width: 100%;
+            width: 500px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navigation Bar */
+        .logo {
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        .top-nav {
+            background-color: white;
+            border-bottom: 1px solid #fce48d; /* Yellow */
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: #333; /* Dark text color */
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #f1f1f1;
+            color: #f4d978; /* Yellow hover effect */
+        }
+
+        /* "What We Offer" Section Styling */
+        .offer-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .offer-item {
+            background-color: #a8cba1b4; /* Green */
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .offer-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .offer-item h3 {
+            font-size: 1.5rem;
+            color: #876b06;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .offer-item p {
+            font-size: 1rem;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html">
+                <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+            </a>
+            <nav>
+                <a href="gen-meals.html">PLANNING</a>
+                <a href="meal_plans.html">SAVED MEAL PLANS</a>
+                <a href="about.html">ABOUT</a>
+            </nav>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <h1>Design & Dine</h1>
+            <p>Making healthy eating simple, affordable, and enjoyable.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="card">
+                <h2>Who We Are</h2>
+                <p>At <span class="highlight">Design & Dine</span>, we make healthy eating simple and stress-free. Our platform helps you plan meals tailored to your preferences and goals.</p>
+            </div>
+
+            <div class="card">
+                <h2>What We Offer</h2>
+                <div class="offer-list">
+                    <div class="offer-item">
+                        <h3>Healthy Recipes</h3>
+                        <p>Discover delicious and nutritious recipes for every meal of the day.</p>
+                    </div>
+                    <div class="offer-item">
+                        <h3>Comprehensive Shopping Lists</h3>
+                        <p>Receive curated shopping lists based on your meal plan.</p>
+                    </div>
+                    <div class="offer-item">
+                        <h3>Customizable Meal Plans</h3>
+                        <p>Modify your meals based on dietary preferences or restrictions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Our Mission</h2>
+                <p>Our mission is simple: empower individuals and families to embrace a healthier lifestyle with ease, using technology and personalized nutrition.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Design&Dine. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
