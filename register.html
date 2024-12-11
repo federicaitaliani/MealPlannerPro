@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #e4d426;
+            background: linear-gradient(135deg, #e4d426, #f5f5f5); /* Gradient background */
             color: #333;
             line-height: 1.6;
         }
@@ -29,7 +29,7 @@
         /* Header */
         header {
             background-color: #ffffff;
-            color: #e4d426;
+            color: #28a745;
             text-align: center;
             padding: 60px 0;
         }
@@ -46,6 +46,8 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 20px;
+            text-align: center;
+            color: #28a745;
         }
 
         /* Registration Form Styling */
@@ -64,13 +66,12 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            margin-bottom: 30px;
         }
 
         .register-box h2 {
             margin-bottom: 20px;
             font-size: 2rem;
-            color: #e4d426;
+            color:#28a745;
             text-align: center;
         }
 
@@ -92,7 +93,7 @@
 
         button {
             width: 100%;
-            background-color: #e4d426;
+            background-color: #28a745;
             color: white;
             font-size: 1.2rem;
             padding: 12px;
@@ -106,21 +107,6 @@
         button:hover {
             background-color: #333;
             color: white;
-        }
-
-        .terms {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .terms input {
-            margin-right: 10px;
-        }
-
-        .terms label {
-            font-size: 0.9rem;
-            font-weight: normal;
         }
 
         /* Footer */
@@ -191,18 +177,55 @@
         #form-message.error {
             color: red;
         }
-                 .logo {
+
+        .logo {
             height: 50px; 
             margin-right: 20px;
         }
+                /* Styling for the subscription part */
+        .terms {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;  /* Light gray background */
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;  /* Subtle border */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+        }
+
+        .terms input {
+            margin-right: 10px;
+        }
+
+        .terms label {
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .subscribe-text {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .subscribe-text a {
+            color:#28a745;
+            text-decoration: none;
+        }
+
+        .subscribe-text a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
     <div class="top-nav">
         <div class="nav-container">
-                       <a href="index.html">
-        <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
-    </a>
+            <a href="index.html">
+                <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+            </a>
             <nav>
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
@@ -210,9 +233,9 @@
             </nav>
         </div>
     </div>
-      <header>
+    <header>
         <h1>Welcome to Design&Dine</h1>
-        <p>Your go-to solution for personalized meal planning & grocery shopping</p>
+        <p>We offer personalized meal ideas based on your diet and pantry, plus a shopping list to simplify your cooking.</p>
     </header>
     <div class="register-container">
         <div class="register-box">
@@ -222,15 +245,25 @@
                 <input type="text" id="username" name="username" required>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
+                
+                <!-- Updated Subscribe Section -->
                 <div class="terms">
                     <input type="checkbox" id="agree" name="agree" required>
-                    <label for="agree">Subscribe now to get unlimited meal plans and more for just $8 a month. I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.</label>
+                    <label for="agree">
+                        <span class="subscribe-text">
+                            Subscribe now for just $8/month and enjoy unlimited meal plans, shopping lists, and more. 
+                            I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and 
+                            <a href="privacy.html" target="_blank">Privacy Policy</a>.
+                        </span>
+                    </label>
                 </div>
+                
                 <button type="submit">Register</button>
             </form>
             <p id="form-message"></p>
         </div>
     </div>
+    
     <footer>
         <p>&copy; 2024 My Website | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
     </footer>
@@ -271,3 +304,4 @@
     </script>
 </body>
 </html>
+
