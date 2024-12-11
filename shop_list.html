@@ -95,27 +95,84 @@
             padding-left: 20px;
             color: #666;
         }
+         /* Footer */
         footer {
+            background-color: #333;
+            color: white;
             text-align: center;
             padding: 20px 0;
-            background-color: #333;
-            color: #fff;
-            margin-top: 40px;
         }
+
         footer a {
             color: #f1f1f1;
             text-decoration: none;
         }
+
         footer a:hover {
             text-decoration: underline;
         }
+
+        /* Navbar */
+        .top-nav {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e4d426;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            height: 80px;  /* Reduced size of the logo */
+            margin-right: 20px;  /* Space between logo and navigation links */
+            margin-left: 0;  /* Align logo to the left */
+        }
+
+        nav a {
+            color: #6a9a3c;  /* Earthy green */
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #e4d426;
+            color: white;
+        }
+
     </style>
 </head>
+   <div class="top-nav">
+        <div class="nav-container">
+            <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+            <nav>
+                <a href="gen-meals.html">PLANNING</a>
+                <a href="meal_plans.html">SAVED MEAL PLANS</a>
+                <a href="about.html">ABOUT</a>
+            </nav>
+        </div>
+    </div>
         <h1>Your Shopping List</h1>
         <div id="shopping-list"></div>
     </div>
+       <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 Design&Dine. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2024 Design&Dine. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a></p>
+        </div>
     </footer>
     <script>
         function toggleIngredients(id) {
