@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <title>Register - Design&Dine</title>
     <style>
         /* General Reset */
         * {
@@ -13,112 +14,109 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #e4d426, #f5f5f5);
+            font-family: 'Poppins', sans-serif;
+            background-color: #faf3e0; /* Light Beige */
             color: #333;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .container {
+        /* Header Styling */
+        .top-nav {
+            background-color: white; /* White background for header */
+            color: #333;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc; /* Slight border for distinction */
+        }
+
+        .nav-container {
             width: 80%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header */
-        header {
-            background-color: #ffffff;
-            color: #28a745;
-            text-align: center;
-            padding: 60px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 3rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        header p {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Registration Form Styling */
-        .register-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            flex-direction: column;
-            min-height: 70vh;
-            gap: 20px; /* Added gap between boxes */
-            margin-top: 20px;
         }
 
-        .register-box {
+        .logo {
+            height: 50px;
+        }
+
+        nav a {
+            color: #7a9d3f; /* Green color for links */
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Container */
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
             background-color: #fff;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .register-box h2 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-            color: #28a745;
+        h1 {
+            font-family: 'Glacial Indifference', sans-serif;
+            font-weight: 600;
+            font-size: 2.5rem;
+            color: #000;
             text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         label {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            display: block;
+            font-size: 1rem;
             font-weight: bold;
+            color: #444;
         }
 
-        input {
+        input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
             font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         button {
-            width: 100%;
-            background-color: #28a745;
-            color: white;
-            font-size: 1.2rem;
-            padding: 12px;
+            background-color: #7a9d3f; /* Dark Green */
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #333;
-            color: white;
+            background-color: #6b8d30; /* Darker Green */
         }
 
-         /* Footer */
+        /* Footer Section */
         footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 20px 0;
+            margin-top: auto; /* Push the footer to the bottom */
         }
 
         footer a {
@@ -129,176 +127,11 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        /* Navbar */
-        .top-nav {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e4d426;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-            height: 80px;  /* Reduced size of the logo */
-            margin-right: 20px;  /* Space between logo and navigation links */
-            margin-left: 0;  /* Align logo to the left */
-        }
-
-        nav a {
-            color: #6a9a3c;  /* Earthy green */
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            margin: 0 15px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        nav a:hover {
-            background-color: #e4d426;
-            color: white;
-        }
-
-        /* Dynamic Message Styling */
-        #form-message {
-            margin-top: 15px;
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        #form-message.success {
-            color: green;
-        }
-
-        #form-message.error {
-            color: red;
-        }
-
-        .logo {
-            height: 50px; 
-            margin-right: 20px;
-        }
-
-        /* Styling for the subscription part */
-        .terms {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .terms input {
-            margin-top: 10px;
-            margin-right: 0;
-        }
-
-        .terms label {
-            font-size: 0.9rem;
-            font-weight: normal;
-        }
-
-        /* Styling for the subscription box */
-        .subscribe-text {
-            font-size: 1rem;
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .subscribe-box {
-            background-color: #28a745; /* Green background */
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .subscribe-text a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .subscribe-text h4 {
-            color: #fff;
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-
-        .subscribe-text p {
-            color: #fff;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        .subscribe-text a:hover {
-            text-decoration: underline;
-        }
-
-        /* Payment Box */
-        .payment-box {
-            background-color: #fff;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            margin-top: 20px;
-        }
-
-        .payment-box h3 {
-            font-size: 2rem;
-            color: #28a745;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .payment-box input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .payment-box button {
-            width: 100%;
-            background-color: #28a745;
-            color: white;
-            font-size: 1.2rem;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        .payment-box button:hover {
-            background-color: #333;
-            color: white;
-        }
     </style>
 </head>
 <body>
+
+    <!-- Header Section -->
     <div class="top-nav">
         <div class="nav-container">
             <a href="index.html">
@@ -310,166 +143,34 @@
                 <a href="shop_list.html">CART</a>
                 <a href="about.html">ABOUT</a>
             </nav>
-
         </div>
     </div>
-    <header>
-        <h1>Welcome to Design&Dine</h1>
-        <p>We offer personalized meal ideas based on your diet and pantry, plus a shopping list to simplify your cooking.</p>
-    </header>
-    
-    <div class="register-container">
 
-        <!-- Subscription Box -->
-        <!-- Subscribe Box -->
-        <div class="subscribe-box">
-            <span class="subscribe-text">
-                <h4>$8/m</h4>
-                <p>Subscribe now and enjoy unlimited meal plans, shopping lists, and more. 
-                I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and 
-                <a href="privacy.html" target="_blank">Privacy Policy</a>.</p>
-            </span>
-            <input type="checkbox" id="agree" name="agree" required>
-            <br><br>
-            <button id="subscribeBtn">Subscribe</button>
-        </div>
+    <!-- Register Form Section -->
+    <div class="container">
+        <h1>Register</h1>
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-        <!-- Payment Box (Hidden initially) -->
-        <div class="payment-box" style="display: none;">
-            <h3>Payment Information</h3>
-            <form id="paymentForm">
-                <label for="cardNumber">Credit Card Number:</label>
-                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9876 5432" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-                <label for="expiryDate">Expiry Date (MM/YY):</label>
-                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
-
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv" placeholder="123" required>
-
-                <button type="submit">Submit Payment</button>
-            </form>
-        </div>
-
-
-        <!-- Registration Box -->
-        <div class="register-box">
-            <h2>Register</h2>
-            <form method="POST" action="register.php" id="registrationForm">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Register</button>
-            </form>
-            <p id="form-message"></p>
-        </div>
+            <button type="submit">Register</button>
+        </form>
     </div>
-    
-   <footer>
-        <div class="container">
-            <!-- Login and Register links above the Contact Us line -->
-            <div style="margin-bottom: 10px; text-align: center;">
-                <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
-                <a href="register.html" style="color:  rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
-            </div>
-            <p>&copy; 2024 Design&Dine. All rights reserved. 
-                | <a href="mailto:support@designdine.com">Contact Us</a> 
-            </p>
+
+    <!-- Footer Section -->
+    <footer>
+        <div>
+            <a href="login.html" style="color: yellow; font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
+            <a href="register.html" style="color: yellow; font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
         </div>
+        <p>&copy; 2024 Design&Dine. All rights reserved. | <a href="mailto:support@designdine.com">Contact Us</a></p>
     </footer>
 
-    <script>
-        document.getElementById('subscribeBtn').addEventListener('click', function() {
-        const isChecked = document.getElementById('agree').checked;
-        
-        if (isChecked) {
-            // Show the payment box
-            document.querySelector('.payment-box').style.display = 'block';
-        } else {
-            alert('Please agree to the Terms of Service and Privacy Policy to proceed.');
-        }
-    });
-
-    document.getElementById('paymentForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        // Get payment details
-        const cardNumber = document.getElementById('cardNumber').value;
-        const expiryDate = document.getElementById('expiryDate').value;
-        const cvv = document.getElementById('cvv').value;
-        
-        // Validate payment form
-        if (!cardNumber || !expiryDate || !cvv) {
-            alert('Please fill in all the payment details before submitting.');
-            return;
-        }
-        
-        // Simulate payment process (you can replace this with real logic)
-        alert('Payment successful! You can now proceed to registration.');
-        
-        // Disable payment input fields (optional)
-        document.getElementById('cardNumber').disabled = true;
-        document.getElementById('expiryDate').disabled = true;
-        document.getElementById('cvv').disabled = true;
-        
-        // Enable the registration button and hide the payment box
-        document.getElementById('registerBtn').disabled = false;
-        document.querySelector('.payment-box').style.display = 'none';
-    });
-
-    const registrationForm = document.getElementById('registrationForm');
-    const formMessage = document.getElementById('form-message');
-
-    // Registration form submission
-    registrationForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        // Ensure the user has gone through payment and subscription steps
-        const paymentBoxVisible = document.querySelector('.payment-box').style.display !== 'none';
-        const subscriptionChecked = document.getElementById('agree').checked;
-
-        if (!subscriptionChecked || !paymentBoxVisible) {
-            formMessage.textContent = 'You must subscribe and complete payment before registering.';
-            formMessage.classList.remove('success');  // Clear any success class
-            formMessage.classList.add('error');
-            return;
-        }
-
-        // Collect registration form data
-        const registrationData = new FormData(registrationForm);
-
-        try {
-            // Send the form data to registration.php
-            const response = await fetch('register.php', {
-                method: 'POST',
-                body: registrationData,
-            });
-
-            const result = await response.json();
-
-            // Handle the server response
-            if (result.success) {
-                formMessage.textContent = 'Registration successful!';
-                formMessage.classList.remove('error');
-                formMessage.classList.add('success');
-                registrationForm.reset();  // Clear form fields on success
-            } else {
-                formMessage.textContent = result.message || 'An error occurred during registration.';
-                formMessage.classList.remove('success');
-                formMessage.classList.add('error');
-            }
-        } catch (error) {
-            console.error('Error during registration:', error);
-            formMessage.textContent = 'An unexpected error occurred. Please try again.';
-            formMessage.classList.remove('success');
-            formMessage.classList.add('error');
-        }
-    });
-
-
-    </script>
 </body>
 </html>
-
