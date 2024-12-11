@@ -31,12 +31,7 @@
         header {
             background-color: #fff;
             text-align: center;
-            padding: 60px 0;
-        }
-
-        .logo-header {
-            width: 150px;  /* Adjust the width of the logo */
-            margin-bottom: 20px;  /* Space between the logo and the heading */
+            padding: 30px 0;
         }
 
         header h1 {
@@ -45,14 +40,14 @@
             font-size: 4rem;
             text-transform: uppercase;
             color: #000;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             letter-spacing: 5px;
         }
 
         header p {
             font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 30px;
+            margin-bottom: 0px;
             color: #444;
         }
 
@@ -60,6 +55,7 @@
         .hero-section {
             position: relative;
             margin-top: 20px;
+            text-align: center;  /* Ensures the content is centered */
         }
 
         .kiwi {
@@ -71,7 +67,7 @@
 
         .hero-text {
             position: absolute;
-            top: 50%;
+            top: 40%;  /* Adjust this value to move the text up or down */
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
@@ -81,6 +77,13 @@
             padding: 20px;
             border-radius: 8px;
             text-align: center;
+        }
+
+        /* New class for the logo below the image */
+        .hero-logo {
+            display: block;
+            margin: 20px auto;  /* Centering the logo with margin */
+            width: 150px;  /* Adjust the size if needed */
         }
 
         /* Features Section */
@@ -147,8 +150,9 @@
         }
 
         .logo {
-            height: 50px;
-            margin-right: 20px;
+            height: 80px;  /* Reduced size of the logo */
+            margin-right: 20px;  /* Space between logo and navigation links */
+            margin-left: 0;  /* Align logo to the left */
         }
 
         nav a {
@@ -202,7 +206,6 @@
     <!-- Header Section -->
     <header>
         <div class="container">
-            <img src="logo.jpg" alt="Design&Dine Logo" class="logo-header">
             <h1>DESIGN&DINE</h1>
             <p>Your personalized meal planning solution</p>
         </div>
@@ -212,6 +215,8 @@
             <div class="hero-text">
                 <h2>Transform Your Ingredients into Delicious Meals</h2>
             </div>
+            <!-- Move the logo here below the kiwi image -->
+            <img src="logo.jpg" alt="Design&Dine Logo" class="hero-logo">
         </div>
     </header>
         
