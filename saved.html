@@ -10,61 +10,90 @@
             background-color: #f4f4f4;
             color: #333;
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
         }
+
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
             color: #444;
+            margin-bottom: 20px;
         }
-        /* .meal {
-            background: #fff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .meal img {
-            width: 150px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .meal-info {
-            margin-left: 20px;
-        } */
-        .ingredients {
-            display: none;
-            margin-top: 10px;
-        }
+
         .meal {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #fff;
+            background: #f9f9f9;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .meal img {
-            width: 200px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .meal-info {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             text-align: left;
-            width: 100%;
         }
 
+        .meal h3 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 1.5em;
+        }
+
+        .meal a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .meal a:hover {
+            text-decoration: underline;
+        }
+
+        .meal p {
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .meal button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .meal button:hover {
+            background-color: #0056b3;
+        }
+
+        .ingredients {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .ingredients ul {
+            list-style-type: disc;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .ingredients ul li {
+            margin-bottom: 5px;
+        }
+
+        .no-meals {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -84,18 +113,20 @@
                             const mealDiv = document.createElement("div");
                             mealDiv.classList.add("meal");
                             mealDiv.innerHTML = `
-                                <img src="${meal.image}" alt="${meal.name}">
-                                <div class="meal-info">
-                                    <h3>${meal.name}</h3>
-                                    <a href="${meal.url}" target="_blank">View Recipe</a>
-                                    <button onclick="toggleIngredients(${meal.id})">View Ingredients</button>
-                                    <div id="ingredients-${meal.id}" class="ingredients"></div>
-                                </div>
+                                <h3>${meal.name}</h3>
+                                <p><strong>Calories:</strong> ${meal.calories || "N/A"}</p>
+                                <p><strong>Protein:</strong> ${meal.protein || "N/A"}</p>
+                                <p><strong>Fat:</strong> ${meal.fat || "N/A"}</p>
+                                <p><strong>Carbs:</strong> ${meal.carbs || "N/A"}</p>
+                                <p><strong>Prep Time:</strong> ${meal.prep_time || "N/A"}</p>
+                                <a href="${meal.url}" target="_blank">View Recipe</a>
+                                <button onclick="toggleIngredients(${meal.id})">View Ingredients</button>
+                                <div id="ingredients-${meal.id}" class="ingredients"></div>
                             `;
                             savedMealsDiv.appendChild(mealDiv);
                         });
                     } else {
-                        savedMealsDiv.innerHTML = "<p>No saved meals found.</p>";
+                        savedMealsDiv.innerHTML = "<p class='no-meals'>No saved meals found.</p>";
                     }
                 })
                 .catch(error => console.error("Error fetching saved meals:", error));
@@ -104,13 +135,12 @@
         function toggleIngredients(mealId) {
             const ingredientsDiv = document.getElementById(`ingredients-${mealId}`);
             if (!ingredientsDiv.hasChildNodes()) {
-                // Fetch ingredients from the saved.php output
                 fetch("saved.php")
                     .then(response => response.json())
                     .then(data => {
                         const meal = data.meals.find(meal => meal.id === mealId);
                         if (meal) {
-                            const ingredientsList = JSON.parse(meal.ingredients); // Parse JSON string
+                            const ingredientsList = JSON.parse(meal.ingredients);
                             const ul = document.createElement("ul");
                             ingredientsList.forEach(ingredient => {
                                 const li = document.createElement("li");
@@ -123,11 +153,9 @@
                     .catch(error => console.error("Error loading ingredients:", error));
             }
 
-            // Toggle visibility
             ingredientsDiv.style.display =
                 ingredientsDiv.style.display === "block" ? "none" : "block";
         }
-
     </script>
 </body>
 </html>
