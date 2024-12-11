@@ -3,133 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference&display=swap" rel="stylesheet">
     <title>Saved Meals</title>
     <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Glacial Indifference', sans-serif;
-            background-color: #e4d426;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             color: #333;
             line-height: 1.6;
         }
-
         .container {
-            width: 80%;
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
-
-        header {
-            background-color: #ffffff;
-            color: #e4d426;
+        h1 {
             text-align: center;
-            padding: 40px 0;
+            color: #444;
         }
-
-        header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 3rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        #saved-meals {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .meal-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .meal-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-        }
-
-        .meal-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .meal-info {
+        /* .meal {
+            background: #fff;
             padding: 15px;
-            text-align: center;
-        }
-
-        .meal-info h3 {
-            color: #333;
-            font-size: 1.5rem;
             margin-bottom: 10px;
-        }
-
-        .meal-info a {
-            display: block;
-            background-color: #e4d426;
-            color: white;
-            padding: 10px 15px;
             border-radius: 5px;
-            text-decoration: none;
-            margin: 10px 0;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
-
-        .meal-info a:hover {
-            background-color: darkgreen;
+        .meal img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
         }
-
+        .meal-info {
+            margin-left: 20px;
+        } */
         .ingredients {
             display: none;
             margin-top: 10px;
-            background-color: #f9f9f9;
-            padding: 10px;
+        }
+        .meal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
             border-radius: 5px;
-            text-align: left;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             text-align: center;
-            padding: 20px 0;
         }
 
-        footer a {
-            color: #f1f1f1;
-            text-decoration: none;
+        .meal img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .meal-info {
+            text-align: left;
+            width: 100%;
         }
+
     </style>
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>Saved Meals</h1>
-    </header>
-    <main class="container">
         <div id="saved-meals"></div>
-    </main>
-    <footer>
-        <p>&copy; 2024 Design&Dine. All rights reserved.</p>
-    </footer>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -139,18 +81,18 @@
                     const savedMealsDiv = document.getElementById("saved-meals");
                     if (data.success && data.meals.length > 0) {
                         data.meals.forEach(meal => {
-                            const mealCard = document.createElement("div");
-                            mealCard.classList.add("meal-card");
-                            mealCard.innerHTML = `
+                            const mealDiv = document.createElement("div");
+                            mealDiv.classList.add("meal");
+                            mealDiv.innerHTML = `
                                 <img src="${meal.image}" alt="${meal.name}">
                                 <div class="meal-info">
                                     <h3>${meal.name}</h3>
                                     <a href="${meal.url}" target="_blank">View Recipe</a>
                                     <button onclick="toggleIngredients(${meal.id})">View Ingredients</button>
-                                    <div id="ingredients-${meal.id}" class="ingredients">${meal.ingredients}</div>
+                                    <div id="ingredients-${meal.id}" class="ingredients"></div>
                                 </div>
                             `;
-                            savedMealsDiv.appendChild(mealCard);
+                            savedMealsDiv.appendChild(mealDiv);
                         });
                     } else {
                         savedMealsDiv.innerHTML = "<p>No saved meals found.</p>";
@@ -161,12 +103,31 @@
 
         function toggleIngredients(mealId) {
             const ingredientsDiv = document.getElementById(`ingredients-${mealId}`);
-            if (ingredientsDiv.style.display === "none" || !ingredientsDiv.style.display) {
-                ingredientsDiv.style.display = "block";
-            } else {
-                ingredientsDiv.style.display = "none";
+            if (!ingredientsDiv.hasChildNodes()) {
+                // Fetch ingredients from the saved.php output
+                fetch("saved.php")
+                    .then(response => response.json())
+                    .then(data => {
+                        const meal = data.meals.find(meal => meal.id === mealId);
+                        if (meal) {
+                            const ingredientsList = JSON.parse(meal.ingredients); // Parse JSON string
+                            const ul = document.createElement("ul");
+                            ingredientsList.forEach(ingredient => {
+                                const li = document.createElement("li");
+                                li.textContent = ingredient;
+                                ul.appendChild(li);
+                            });
+                            ingredientsDiv.appendChild(ul);
+                        }
+                    })
+                    .catch(error => console.error("Error loading ingredients:", error));
             }
+
+            // Toggle visibility
+            ingredientsDiv.style.display =
+                ingredientsDiv.style.display === "block" ? "none" : "block";
         }
+
     </script>
 </body>
 </html>
