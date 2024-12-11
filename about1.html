@@ -53,9 +53,10 @@
 
         /* About Section */
         .about-section {
-            padding: 40px 0;
+            padding: 60px 0;
             text-align: center;
             background-color: #faf3e0; /* Light Beige */
+            position: relative;
         }
 
         .about-section h2 {
@@ -63,11 +64,18 @@
             font-weight: 600;
             color: #333;
             margin-bottom: 20px;
-            background-color: #7a9d3f; /* Dark Green */
-            padding: 10px 80px; /* Adjust horizontal padding to make the background smaller */
-            border-radius: 5px;
-            color: white; /* White text for contrast */
+            position: relative;
             display: inline-block; /* Makes the background width fit the content */
+            padding-bottom: 10px;
+        }
+
+        .about-section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #7a9d3f; /* Dark Green */
+            margin: 20px auto 0;
         }
 
         .about-section p {
@@ -83,6 +91,85 @@
             font-weight: bold;
         }
 
+        /* Icons and Features Section */
+/* Icons and Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    gap: 15px;  /* Reduced gap between the boxes */
+    text-align: center;
+}
+
+.feature {
+    padding: 20px;
+    background-color: #f1f1f1; /* Default light background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    max-width: 500px; /* Optional: Add maximum width for better spacing */
+}
+
+/* Enhanced Background Colors */
+.feature:nth-child(1) {
+    background-color: #ffedcc; /* Light Yellow */
+}
+
+.feature:nth-child(2) {
+    background-color: #d1f7e7; /* Light Mint Green */
+}
+
+.feature:nth-child(3) {
+    background-color: #fff5d9; /* Light Peach */
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: #7a9d3f;
+    margin-bottom: 15px;
+}
+
+.feature h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 1rem;
+    color: #444;
+}
+
+
+        .feature {
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #7a9d3f;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Visual Section */
         .visual-section {
             position: relative;
             margin-top: 20px;
@@ -94,6 +181,8 @@
             height: 400px;
             object-fit: cover;
             object-position: center;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         /* Footer Section */
@@ -162,17 +251,12 @@
             <a href="index.html">
                 <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
             </a>
-                        <nav>
+            <nav>
                 <a href="gen-meals.html">PLANNING</a>
                 <a href="meal_plans.html">SAVED MEAL PLANS</a>
                 <a href="about.html">ABOUT</a>
             </nav>
         </div>
-    </div>
-
-    <!-- Visual Section -->
-    <div class="visual-section">
-        <img src="food.jpg" alt="Meal planning visual" class="visual-image">
     </div>
 
     <!-- About Section -->
@@ -182,6 +266,30 @@
             <p><strong>Design&Dine</strong> is a personalized meal planning service that helps you optimize your kitchen ingredients by suggesting delicious, easy-to-make recipes. Whether you're an experienced cook or a novice, Design&Dine allows you to make the most of what you already have, saving time and money. Our mission is to help busy individuals and families make healthy, flavorful meals that fit their dietary preferences.</p>
             <p>Our platform is designed with simplicity and efficiency in mind. By understanding your kitchen inventory, we suggest tailored meal plans that are easy to follow and cost-effective. We believe meal planning should be accessible to everyone, and that's why we offer an intuitive interface that makes it fun and easy to plan your meals in just a few clicks.</p>
         </div>
+    </div>
+
+    <!-- Icons and Features Section -->
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">🍳</div>
+            <h3>Easy Recipes</h3>
+            <p>Quick, healthy, and customizable meal ideas based on what you already have in your kitchen.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">💡</div>
+            <h3>Smart Suggestions</h3>
+            <p>Personalized meal plans that optimize your ingredients, reducing waste and saving money.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🛒</div>
+            <h3>Grocery List</h3>
+            <p>Generate a shopping list based on your meal plans, making it easier to grab what you need.</p>
+        </div>
+    </div>
+
+    <!-- Visual Section -->
+    <div class="visual-section">
+        <img src="meal-image.jpg" alt="Delicious Meal" class="visual-image">
     </div>
 
     <!-- Footer Section -->
