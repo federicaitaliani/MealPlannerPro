@@ -1,5 +1,6 @@
-
-
+  <?php
+     session_start();
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -253,8 +254,8 @@
         <!-- Login and Register links above the Contact Us line -->
         <div style="margin-bottom: 10px; text-align: center;">
             <?php
-            // Start the session
-            session_start();
+       
+
 
             // Check if the user is logged in
             if (isset($_SESSION['user_id'])) {
