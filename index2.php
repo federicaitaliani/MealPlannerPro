@@ -1,5 +1,7 @@
   <?php
      session_start();
+
+    $isLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -258,7 +260,7 @@
 
 
             // Check if the user is logged in
-            if (isset($_SESSION['user_id'])) {
+            if ($isLoggedIn)) {
                 // If logged in, show the logout link
                 echo '<a href="logout.php" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Logout</a>';
             } else {
