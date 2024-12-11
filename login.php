@@ -26,9 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $username;
 
-                // Redirect to the index page after successful login
-                header("Location: index2.php");
-                exit(); // Ensure no further code is executed after redirect
+                // Prepare response and send it as JSON
+                echo json_encode([
+                    "success" => true,
+                    "message" => "Login successful!",
+                    "redirect" => "index2.php"
+                ]);
             } else {
                 // If password is incorrect
                 echo json_encode([
