@@ -113,60 +113,59 @@
         }
 
         /* Navbar */
-        .top-nav {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e4d426;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-    height: 80px; /* Set an appropriate height */
-    width: auto; /* Maintain aspect ratio */
-    margin-right: 20px;
-    margin-left: 0;
+.top-nav {
+    background-color: #ffffff; /* White background */
+    border-bottom: 1px solid #e4d426; /* Yellow border for style */
+    padding: 15px 0; /* Padding for better spacing */
+    position: sticky; /* Sticks to the top when scrolling */
+    top: 0; /* Ensure it stays at the top */
+    z-index: 1000; /* Layering to keep it on top */
 }
 
-        nav a {
-            color: #6a9a3c;  /* Earthy green */
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            margin: 0 15px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+.nav-container {
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between logo and links */
+    max-width: 1200px; /* Constrain the width */
+    margin: 0 auto; /* Center the nav-container */
+    padding: 0 20px; /* Add horizontal padding */
+}
 
-        nav a:hover {
-            background-color: #e4d426;
-            color: white;
-        }
+.logo {
+    height: 80px; /* Set the size of the logo */
+    margin-right: 20px; /* Space between the logo and navigation links */
+    margin-left: 0; /* Align the logo to the left */
+}
+
+nav a {
+    color: #6a9a3c; /* Earthy green text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 1rem; /* Adjust font size */
+    font-weight: bold; /* Make text bold */
+    margin: 0 15px; /* Spacing between links */
+    padding: 8px 12px; /* Padding around links */
+    border-radius: 4px; /* Rounded edges for hover effect */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+nav a:hover {
+    background-color: #e4d426; /* Yellow background on hover */
+    color: white; /* White text on hover */
+}
 
     </style>
 </head>
    <body>
-   <div class="top-nav">
-        <div class="nav-container">
-            <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
-            <nav>
-                <a href="gen-meals.html">PLANNING</a>
-                <a href="meal_plans.html">SAVED MEAL PLANS</a>
-                <a href="about.html">ABOUT</a>
-            </nav>
-        </div>
+<div class="top-nav">
+    <div class="nav-container">
+        <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+        <nav>
+            <a href="gen-meals.html">PLANNING</a>
+            <a href="meal_plans.html">SAVED MEAL PLANS</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
     </div>
+</div>
        <header>
         <h1>Your Shopping List</h1>
        </header>
