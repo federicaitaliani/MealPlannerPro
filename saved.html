@@ -3,50 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference&display=swap" rel="stylesheet">
     <title>Saved Meals</title>
     <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Glacial Indifference', sans-serif;
+            background-color: #e4d426;
             color: #333;
             line-height: 1.6;
         }
+
         .container {
-            max-width: 800px;
+            width: 80%;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        h1 {
+
+        header {
+            background-color: #ffffff;
+            color: #e4d426;
             text-align: center;
-            color: #444;
+            padding: 40px 0;
         }
-        .meal {
-            background: #fff;
-            padding: 15px;
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            text-transform: uppercase;
             margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
-        .meal img {
-            width: 150px;
-            height: 100px;
+
+        #saved-meals {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .meal-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .meal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        .meal-card img {
+            width: 100%;
+            height: 200px;
             object-fit: cover;
-            border-radius: 5px;
         }
+
         .meal-info {
-            margin-left: 20px;
+            padding: 15px;
+            text-align: center;
         }
+
+        .meal-info h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .meal-info a {
+            display: block;
+            background-color: #e4d426;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .meal-info a:hover {
+            background-color: darkgreen;
+        }
+
         .ingredients {
             display: none;
             margin-top: 10px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Saved Meals</h1>
+    </header>
+    <main class="container">
         <div id="saved-meals"></div>
-    </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Design&Dine. All rights reserved.</p>
+    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -56,9 +139,9 @@
                     const savedMealsDiv = document.getElementById("saved-meals");
                     if (data.success && data.meals.length > 0) {
                         data.meals.forEach(meal => {
-                            const mealDiv = document.createElement("div");
-                            mealDiv.classList.add("meal");
-                            mealDiv.innerHTML = `
+                            const mealCard = document.createElement("div");
+                            mealCard.classList.add("meal-card");
+                            mealCard.innerHTML = `
                                 <img src="${meal.image}" alt="${meal.name}">
                                 <div class="meal-info">
                                     <h3>${meal.name}</h3>
@@ -67,7 +150,7 @@
                                     <div id="ingredients-${meal.id}" class="ingredients">${meal.ingredients}</div>
                                 </div>
                             `;
-                            savedMealsDiv.appendChild(mealDiv);
+                            savedMealsDiv.appendChild(mealCard);
                         });
                     } else {
                         savedMealsDiv.innerHTML = "<p>No saved meals found.</p>";
