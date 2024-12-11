@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        form input,
+        form select,
+        form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background: #5cb85c;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background: #4cae4c;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .meal {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .meal img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .meal-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .meal-info h3 {
+            margin: 0 0 10px;
+        }
+
+        .meal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .meal-actions button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .meal-actions button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meal Planner</h1>
+        <form id="recipe-form">
+            <label for="mealType">Meal Type:</label>
+            <select id="mealType" name="mealType">
+                <option value="">Any</option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+            </select>
+
+            <label for="health">Health Preference:</label>
+            <select id="health" name="health">
+                <option value="">None</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="gluten-free">Gluten Free</option>
+                <option value="low-fat">Low Fat</option>
+            </select>
+
+            <label for="include">Ingredients to Include:</label>
+            <input type="text" id="include" name="include" placeholder="e.g., chicken, spinach">
+
+            <label for="exclude">Ingredients to Exclude:</label>
+            <input type="text" id="exclude" name="exclude" placeholder="e.g., nuts, rice">
+
+            <button type="submit">Find Recipes</button>
+        </form>
+
+        <div id="results" class="results"></div>
+    </div>
+
+    <script>
+        document.getElementById("recipe-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const mealType = encodeURIComponent(document.getElementById("mealType").value);
+            const health = encodeURIComponent(document.getElementById("health").value);
+            const include = encodeURIComponent(document.getElementById("include").value);
+            const exclude = encodeURIComponent(document.getElementById("exclude").value);
+
+            const url = `fetch_recipes.php?mealType=${mealType}&health=${health}&include=${include}&exclude=${exclude}`;
+
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<p>Loading...</p>";
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    resultsDiv.innerHTML = "";
+                    if (data.hits && data.hits.length > 0) {
+                        data.hits.forEach(hit => {
+                            const recipe = hit.recipe;
+                            const mealDiv = document.createElement("div");
+                            mealDiv.classList.add("meal");
+                            mealDiv.innerHTML = `
+                            <img src="${recipe.image}" alt="${recipe.label}">
+                            <div class="meal-info">
+                                <h3>${recipe.label}</h3>
+                                <p>Calories: ${Math.round(recipe.calories)} kcal</p>
+                                <p>Servings: ${recipe.yield}</p>
+                                <button onclick="viewIngredients(${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
+                                    View Ingredients
+                                </button>
+                                <button onclick="addToShoppingList('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
+                                    Add to Shopping List
+                                </button>
+                            </div>
+                        `;
+                            resultsDiv.appendChild(mealDiv);
+                        });
+                    } else {
+                        resultsDiv.innerHTML = "<p>No recipes found. Try different search criteria.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching recipes:", error);
+                    resultsDiv.innerHTML = "<p>Error loading recipes. Please try again later.</p>";
+                });
+        });
+
+        function viewIngredients(ingredients) {
+            alert("Ingredients:\n" + ingredients.join("\n"));
+        }
+
+        function saveMeal(name, image, url, ingredients) {
+        console.log({ name, image, url, ingredients }); // Debugging
+        fetch('save.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, image, url, ingredients: ingredients.join(', ') })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Meal saved successfully!');
+                } else {
+                    alert('Failed to save meal. ' + (data.message || ''));
+                }
+            })
+            .catch(error => console.error('Error saving meal:', error));
+        }
+
+        function addToShoppingList(mealName, ingredients) {
+            fetch('add_to_shopping_list.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ mealName, ingredients }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Meal added to shopping list!");
+                    } else {
+                        alert("Failed to add meal to shopping list: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error adding to shopping list:", error);
+                    alert("An error occurred while adding to shopping list.");
+                });
+        }
+    </script>
+</body>
+</html>

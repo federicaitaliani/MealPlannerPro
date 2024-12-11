@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .meal {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .meal h3 {
+            margin: 0;
+        }
+        .meal .ingredients {
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Shopping List</h1>
+        <div id="shopping-list"></div>
+    </div>
+    <script>
+        function toggleIngredients(id) {
+            const el = document.getElementById(`ingredients-${id}`);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Fetch shopping list
+        fetch('get_shopping_list.php')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('shopping-list');
+                if (data.success && data.meals.length > 0) {
+                    data.meals.forEach((meal, index) => {
+                        const mealDiv = document.createElement('div');
+                        mealDiv.classList.add('meal');
+                        mealDiv.innerHTML = `
+                            <h3>${meal.meal_name}</h3>
+                            <button onclick="toggleIngredients(${index})">View Ingredients</button>
+                            <div id="ingredients-${index}" class="ingredients">
+                                <ul>${meal.ingredients.map(ing => `<li>${ing}</li>`).join('')}</ul>
+                            </div>
+                        `;
+                        container.appendChild(mealDiv);
+                    });
+                } else {
+                    container.innerHTML = "<p>No items in your shopping list.</p>";
+                }
+            })
+            .catch(error => console.error("Error loading shopping list:", error));
+    </script>
+</body>
+</html>
