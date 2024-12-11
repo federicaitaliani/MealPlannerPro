@@ -44,20 +44,6 @@
             font-size: 1.5em;
         }
 
-        .meal a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .meal a:hover {
-            text-decoration: underline;
-        }
-
-        .meal p {
-            margin: 10px 0;
-            line-height: 1.4;
-        }
-
         .meal button {
             display: inline-block;
             margin-top: 10px;
@@ -74,18 +60,18 @@
             background-color: #0056b3;
         }
 
-        .ingredients {
+        .ingredients, .more-info {
             margin-top: 10px;
             display: none;
         }
 
-        .ingredients ul {
+        .ingredients ul, .more-info ul {
             list-style-type: disc;
             margin: 10px 0;
             padding-left: 20px;
         }
 
-        .ingredients ul li {
+        .ingredients ul li, .more-info ul li {
             margin-bottom: 5px;
         }
 
@@ -114,13 +100,18 @@
                             mealDiv.classList.add("meal");
                             mealDiv.innerHTML = `
                                 <h3>${meal.name}</h3>
-                                <p><strong>Calories:</strong> ${meal.calories || "N/A"}</p>
-                                <p><strong>Protein:</strong> ${meal.protein || "N/A"}</p>
-                                <p><strong>Fat:</strong> ${meal.fat || "N/A"}</p>
-                                <p><strong>Carbs:</strong> ${meal.carbs || "N/A"}</p>
-                                <p><strong>Prep Time:</strong> ${meal.prep_time || "N/A"}</p>
-                                <a href="${meal.url}" target="_blank">View Recipe</a>
-                                <button onclick="toggleIngredients(${meal.id})">View Ingredients</button>
+                                <button onclick="toggleMoreInfo(${meal.id})">More Info</button>
+                                <button onclick="toggleIngredients(${meal.id})">Ingredients</button>
+                                <a href="${meal.url}" target="_blank" class="button-link">Recipe</a>
+                                <div id="more-info-${meal.id}" class="more-info">
+                                    <ul>
+                                        <li><strong>Calories:</strong> ${meal.calories || "N/A"}</li>
+                                        <li><strong>Protein:</strong> ${meal.protein || "N/A"}</li>
+                                        <li><strong>Fat:</strong> ${meal.fat || "N/A"}</li>
+                                        <li><strong>Carbs:</strong> ${meal.carbs || "N/A"}</li>
+                                        <li><strong>Prep Time:</strong> ${meal.prep_time || "N/A"}</li>
+                                    </ul>
+                                </div>
                                 <div id="ingredients-${meal.id}" class="ingredients"></div>
                             `;
                             savedMealsDiv.appendChild(mealDiv);
@@ -131,6 +122,12 @@
                 })
                 .catch(error => console.error("Error fetching saved meals:", error));
         });
+
+        function toggleMoreInfo(mealId) {
+            const moreInfoDiv = document.getElementById(`more-info-${mealId}`);
+            moreInfoDiv.style.display =
+                moreInfoDiv.style.display === "block" ? "none" : "block";
+        }
 
         function toggleIngredients(mealId) {
             const ingredientsDiv = document.getElementById(`ingredients-${mealId}`);
