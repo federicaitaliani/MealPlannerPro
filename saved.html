@@ -15,10 +15,12 @@
         }
 
         .container {
-            width: 80%;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -28,22 +30,12 @@
         }
 
         .meal {
-             width: 60%; 
-            margin: 0 auto 20px auto;
-            padding: 15px;
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
             background: #f9f9f9;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .meal:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
 
         .meal h3 {
@@ -51,20 +43,27 @@
             color: #007bff;
             font-size: 1.5em;
         }
-  .meal button {
+
+        .meal .toggle-btn, .meal .recipe-link {
             display: inline-block;
-            background-color: #6a9a3c;
+            margin-top: 10px;
+            margin-right: 10px;
+            padding: 8px 12px;
+            font-size: 1rem;
             color: #fff;
+            background-color: #007bff;
             border: none;
             border-radius: 5px;
-            padding: 10px 15px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            text-decoration: none;
         }
 
-        .meal button:hover {
-            background-color: #e4d426;
+        .meal .toggle-btn:hover, .meal .recipe-link:hover {
+            background-color: #0056b3;
+        }
+
+        .meal .toggle-btn.active {
+            background-color: #28a745;
         }
 
         .ingredients, .more-info {
@@ -107,9 +106,9 @@
                             mealDiv.classList.add("meal");
                             mealDiv.innerHTML = `
                                 <h3>${meal.name}</h3>
-                                <button onclick="toggleMoreInfo(${meal.id})">More Info</button>
-                                <button onclick="toggleIngredients(${meal.id})">Ingredients</button>
-                                <a href="${meal.url}" target="_blank" class="button-link">Recipe</a>
+                                <button onclick="toggleMoreInfo(${meal.id})" class="toggle-btn more-info-btn">More Info</button>
+                                <button onclick="toggleIngredients(${meal.id})" class="toggle-btn ingredients-btn">Ingredients</button>
+                                <a href="${meal.url}" target="_blank" class="recipe-link">Recipe</a>
                                 <div id="more-info-${meal.id}" class="more-info">
                                     <ul>
                                         <li><strong>Calories:</strong> ${meal.calories || "N/A"}</li>
@@ -132,12 +131,35 @@
 
         function toggleMoreInfo(mealId) {
             const moreInfoDiv = document.getElementById(`more-info-${mealId}`);
-            moreInfoDiv.style.display =
-                moreInfoDiv.style.display === "block" ? "none" : "block";
+            const ingredientsDiv = document.getElementById(`ingredients-${mealId}`);
+            const moreInfoBtn = document.querySelector(`.more-info-btn[onclick="toggleMoreInfo(${mealId})"]`);
+            const ingredientsBtn = document.querySelector(`.ingredients-btn[onclick="toggleIngredients(${mealId})"]`);
+
+            // Close ingredients if open
+            ingredientsDiv.style.display = "none";
+            ingredientsBtn.classList.remove("active");
+
+            // Toggle more info
+            if (moreInfoDiv.style.display === "block") {
+                moreInfoDiv.style.display = "none";
+                moreInfoBtn.classList.remove("active");
+            } else {
+                moreInfoDiv.style.display = "block";
+                moreInfoBtn.classList.add("active");
+            }
         }
 
         function toggleIngredients(mealId) {
             const ingredientsDiv = document.getElementById(`ingredients-${mealId}`);
+            const moreInfoDiv = document.getElementById(`more-info-${mealId}`);
+            const ingredientsBtn = document.querySelector(`.ingredients-btn[onclick="toggleIngredients(${mealId})"]`);
+            const moreInfoBtn = document.querySelector(`.more-info-btn[onclick="toggleMoreInfo(${mealId})"]`);
+
+            // Close more info if open
+            moreInfoDiv.style.display = "none";
+            moreInfoBtn.classList.remove("active");
+
+            // Load ingredients if not already loaded
             if (!ingredientsDiv.hasChildNodes()) {
                 fetch("saved.php")
                     .then(response => response.json())
@@ -157,8 +179,14 @@
                     .catch(error => console.error("Error loading ingredients:", error));
             }
 
-            ingredientsDiv.style.display =
-                ingredientsDiv.style.display === "block" ? "none" : "block";
+            // Toggle ingredients
+            if (ingredientsDiv.style.display === "block") {
+                ingredientsDiv.style.display = "none";
+                ingredientsBtn.classList.remove("active");
+            } else {
+                ingredientsDiv.style.display = "block";
+                ingredientsBtn.classList.add("active");
+            }
         }
     </script>
 </body>
