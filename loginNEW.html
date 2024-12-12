@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+    /* General Reset */
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #faf3e0;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    header {
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    header h1 {
+        font-family: 'Glacial Indifference', sans-serif;
+        font-weight: 600;
+        font-size: 2rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        letter-spacing: 5px;
+    }
+
+    header p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #444;
+    }
+
+    /* Login Form Styling */
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 70vh;
+    }
+
+    .login-box {
+        background-color: #fff;
+        padding: 30px 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%; /* Ensure full width on smaller screens */
+    }
+
+    @media (max-width: 768px) {
+        .login-box {
+            padding: 20px; /* Adjust padding for smaller screens */
+        }
+    }
+
+    .login-box h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #7a9d3f;
+        text-align: center;
+    }
+
+    label {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        display: block;
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    button {
+        width: 100%;
+        background-color: #7a9d3f;
+        color: white;
+        font-size: 1.2rem;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #333;
+        color: white;
+    }
+
+    /* New Text Styling */
+    .create-account-text {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    footer a {
+        color: #f1f1f1;
+        text-decoration: none;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+
+    /* Navbar */
+    .top-nav {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e4d426;
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .logo {
+        height: 80px;
+        margin-right: 20px;
+    }
+
+    nav a {
+        color: #6a9a3c;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 15px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover {
+        background-color: #e4d426;
+        color: white;
+    }
+
+    /* Dynamic Message Styling */
+    #login-message {
+        margin-top: 15px;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    #login-message.success {
+        color: green;
+    }
+
+    #login-message.error {
+        color: red;
+    }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html">
+                <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+            </a>
+            <nav>
+                <a href="gen-meals.html">RECIPES</a>
+                <a href="saved.html">FAVORITES</a>
+                <a href="shop_list.html">CART</a>
+                <a href="about.html">ABOUT</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <div id="login-message"></div> <!-- Message displayed after login attempt -->
+            <p class="create-account-text">Don't have an account? <a href="register.html">Create One Now!</a>
+
+        </div>
+    </div>
+
+ <footer>
+        <div class="container">
+            <!-- Login and Register links above the Contact Us line -->
+            <div style="margin-bottom: 10px; text-align: center;">
+                <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
+                <a href="register.html" style="color:  rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
+            </div>
+            <p>&copy; 2024 Design&Dine. All rights reserved. 
+                | <a href="mailto:support@designdine.com">Contact Us</a> 
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            const formData = new FormData(this);
+            const loginMessage = document.getElementById('login-message');
+
+            try {
+                const response = await fetch('login.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    loginMessage.style.color = 'green';
+                    loginMessage.textContent = result.message;
+                    // Redirect after a short delay
+                    setTimeout(() => {
+                        window.location.href = result.redirect;
+                    }, 2000);
+                } else {
+                    loginMessage.style.color = 'red';
+                    loginMessage.innerHTML = result.message; // Allows for embedded links
+                }
+            } catch (error) {
+                loginMessage.style.color = 'red';
+                loginMessage.textContent = 'An error occurred. Please try again later.';
+            }
+        });
+
+
+                if (result.success) {
+                loginUser(); // Set the session as logged in
+                loginMessage.style.color = 'green';
+                loginMessage.textContent = result.message;
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.location.href = result.redirect;
+                }, 2000);
+}
+    </script>
+</body>
+</html>
