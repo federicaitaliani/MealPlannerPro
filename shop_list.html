@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -252,6 +252,275 @@
                 } else {
                     container.innerHTML = "<p>No items in your shopping list.</p>";
         }
+    })
+    .catch(error => console.error("Error loading shopping list:", error));
+    </script>
+</body>
+</html>
+ -->
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #faf3e0; /* Light Beige */
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        html, body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            flex-grow: 1;
+        }
+
+        .container {
+                width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        #shopping-list {
+            margin-top: 20px;
+        }
+        .meal {
+            width: 60%; 
+            margin: 0 auto 20px auto;
+            padding: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .meal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        .meal h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .meal .ingredients {
+            margin-top: 10px;
+        }
+        .meal button {
+            display: inline-block;
+            background-color: #6a9a3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .meal button:hover {
+            background-color: #e4d426;
+        }
+        .ingredients {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fefefe;
+            border-radius: 5px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .ingredients ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #333;
+        }
+        
+        header {
+            background-color: #faf3e0;
+            text-align: center;
+            padding: 30px 0;
+        }
+       footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navbar */
+        .top-nav {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e4d426;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            height: 80px;  /* Reduced size of the logo */
+            margin-right: 20px;  /* Space between logo and navigation links */
+            margin-left: 0;  /* Align logo to the left */
+        }
+
+        nav a {
+            color: #6a9a3c;  /* Earthy green */
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #e4d426;
+            color: white;
+        }
+
+    </style>
+</head>
+   <body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html">
+                <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+            </a>
+            <nav>
+                <a href="gen-meals.html">RECIPES</a>
+                <a href="saved.html">FAVORITES</a>
+                <a href="shop_list.html">CART</a>
+                <a href="about.html">ABOUT</a>
+            </nav>
+
+        </div>
+    </div>
+    <header> 
+        <h1>Your Shopping List</h1>
+</header>
+        <div id="shopping-list"></div>
+       <!-- Footer Section -->
+ <footer>
+        <div class="container">
+            <!-- Login and Register links above the Contact Us line -->
+            <div style="margin-bottom: 10px; text-align: center;">
+                <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
+                <a href="register.html" style="color:  rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
+            </div>
+            <p>&copy; 2024 Design&Dine. All rights reserved. 
+                | <a href="mailto:support@designdine.com">Contact Us</a> 
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        function toggleIngredients(id) {
+            const el = document.getElementById(`ingredients-${id}`);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Fetch shopping list
+        fetch('get_shopping_list.php')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('shopping-list');
+                if (data.success && data.meals.length > 0) {
+                    data.meals.forEach((meal, index) => {
+                        const mealDiv = document.createElement('div');
+                        mealDiv.classList.add('meal');
+                        
+                        // Create the ingredients div
+                        const ingredientsDiv = document.createElement('div');
+                        ingredientsDiv.id = `ingredients-${index}`;
+                        ingredientsDiv.classList.add('ingredients');
+                        ingredientsDiv.style.display = 'none'; // Set to 'none' initially
+                        
+                        // Populate the ingredients list
+                        const ul = document.createElement('ul');
+                        meal.ingredients.forEach(ingredient => {
+                            const li = document.createElement('li');
+                            li.textContent = ingredient;
+                            ul.appendChild(li);
+                        });
+                        ingredientsDiv.appendChild(ul);
+
+                        // Populate the meal div
+                        mealDiv.innerHTML = `
+                            <h3>${meal.meal_name}</h3>
+                            <button onclick="toggleIngredients(${index})">View Ingredients</button>
+                        `;
+                        mealDiv.appendChild(ingredientsDiv); // Append the ingredients div
+                        
+                        container.appendChild(mealDiv);
+          
+                    });
+                } else {
+                    container.innerHTML = `
+                        <p>No items in your shopping list.</p>
+                        <button onclick="location.href='get-meals.html'" style="
+                            background-color: #6a9a3c; 
+                            color: #fff; 
+                            border: none; 
+                            padding: 10px 20px; 
+                            font-size: 1rem; 
+                            cursor: pointer; 
+                            border-radius: 5px; 
+                            margin-top: 20px;">
+                            Start Your Shopping List Now!
+                        </button>`;
+                }
     })
     .catch(error => console.error("Error loading shopping list:", error));
     </script>
