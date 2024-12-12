@@ -49,7 +49,7 @@
 
         .meal h3 {
             margin-top: 0;
-            color: #007bff;
+            color: #333;
             font-size: 1.5em;
         }
 
@@ -76,20 +76,23 @@
         }
 
         .ingredients, .more-info {
-            margin-top: 10px;
-            display: none;
-            font-size: 1rem; /* Unified font size */
-            color: #666; /* Unified text color */
-        }
-
-        .ingredients ul, .more-info ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-
-        .ingredients ul li, .more-info ul li {
-            margin-bottom: 5px;
-        }
+    margin-top: 10px;
+    display: none;
+    font-size: 1rem; /* Matches the body font size */
+    color: #333; /* Matches the main text color */
+    line-height: 1.6; /* Matches the body line height */
+    background-color: #f9f9f9; /* Matches the meal card background */
+    padding: 10px; /* Adds some spacing */
+    border-radius: 5px; /* Matches the rounded corners of the meal card */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for consistency */
+}
+.ingredients ul, .more-info ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.ingredients ul li, .more-info ul li {
+    margin-bottom: 5px;
+}
 
         .no-meals {
             text-align: center;
