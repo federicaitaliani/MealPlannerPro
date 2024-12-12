@@ -5,230 +5,230 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #e4d426, #f5f5f5);
-            color: #333;
-            line-height: 1.6;
-        }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #fff;
+        color: #333;
+        line-height: 1.6;
+    }
 
-        .container {
-            width: 80%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .container {
+        width: 80%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px;
+    }
 
-        header {
-            background-color: #ffffff;
-            color: #28a745;
-            text-align: center;
-            padding: 60px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
+    header {
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        padding: 20px 0; /* Reduced from 60px to 20px */
+    }
 
-        header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 3rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
 
-        header p {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #28a745;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-        }
+    header h1 {
+        font-family: 'Glacial Indifference', sans-serif;
+        font-weight: 600;
+        font-size: 2rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        letter-spacing: 5px;
+    }
 
-        /* Login Form Styling */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 70vh;
-        }
+    header p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #444;
+    }
 
-        .login-box {
-            background-color: #fff;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
+    /* Login Form Styling */
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 70vh;
+    }
 
-        .login-box h2 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-            color: #e4d426;
-            text-align: center;
-        }
+    .login-box {
+        background-color: #fff;
+        padding: 30px 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
 
-        label {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            display: block;
-            font-weight: bold;
-        }
+    .login-box h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #7a9d3f;
+        text-align: center;
+    }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
+    label {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        display: block;
+        font-weight: bold;
+    }
 
-        button {
-            width: 100%;
-            background-color: #e4d426;
-            color: white;
-            font-size: 1.2rem;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
 
-        button:hover {
-            background-color: #333;
-            color: white;
-        }
+    button {
+        width: 100%;
+        background-color: #7a9d3f;
+        color: white;
+        font-size: 1.2rem;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
 
-        /* Register Box Styling */
-        .register-box {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            margin-top: 20px;
-            text-align: center;
-        }
+    button:hover {
+        background-color: #333;
+        color: white;
+    }
 
-        .register-box p {
-            font-size: 1rem;
-            font-weight: normal;
-            margin-bottom: 15px;
-        }
+    /* Register Box Styling */
+    .register-box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        margin-top: 20px;
+        text-align: center;
+    }
 
-        .register-box a {
-            color: #28a745;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .register-box p {
+        font-size: 1rem;
+        font-weight: normal;
+        margin-bottom: 15px;
+    }
 
-        .register-box a:hover {
-            color:#28a745;
-        }
+    .register-box a {
+        color: #7a9d3f;
+        text-decoration: none;
+        font-weight: bold;
+    }
 
-        .register-box button {
-            width: 100%;
-            background-color: #28a745;
-            color: white;
-            font-size: 1.2rem;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+    .register-box a:hover {
+        color: #7a9d3f;
+    }
 
-        .register-box button:hover {
-            background-color: #333;
-            color: white;
-        }
+    .register-box button {
+        width: 100%;
+        background-color: #7a9d3f;
+        color: white;
+        font-size: 1.2rem;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
 
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-        }
+    .register-box button:hover {
+        background-color: #333;
+        color: white;
+    }
 
-        footer a {
-            color: #f1f1f1;
-            text-decoration: none;
-        }
+    /* Footer */
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+    }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+    footer a {
+        color: #f1f1f1;
+        text-decoration: none;
+    }
 
-        /* Navbar */
-        .top-nav {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e4d426;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    footer a:hover {
+        text-decoration: underline;
+    }
 
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    /* Navbar */
+    .top-nav {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e4d426;
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
 
-        .logo {
-            height: 80px;
-            margin-right: 20px;
-        }
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
 
-        nav a {
-            color: #6a9a3c;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            margin: 0 15px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    .logo {
+        height: 80px;
+        margin-right: 20px;
+    }
 
-        nav a:hover {
-            background-color: #e4d426;
-            color: white;
-        }
+    nav a {
+        color: #6a9a3c;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 15px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-        /* Dynamic Message Styling */
-        #login-message {
-            margin-top: 15px;
-            font-size: 1rem;
-            text-align: center;
-        }
+    nav a:hover {
+        background-color: #e4d426;
+        color: white;
+    }
 
-        #login-message.success {
-            color: green;
-        }
+    /* Dynamic Message Styling */
+    #login-message {
+        margin-top: 15px;
+        font-size: 1rem;
+        text-align: center;
+    }
 
-        #login-message.error {
-            color: red;
-        }
-    </style>
+    #login-message.success {
+        color: green;
+    }
+
+    #login-message.error {
+        color: red;
+    }
+</style>
 </head>
 <body>
     <div class="top-nav">
@@ -246,8 +246,8 @@
     </div>
 
     <header>
-        <h1>Welcome to Design&Dine</h1>
-        <p>We offer personalized meal ideas based on your diet and pantry, plus a shopping list to simplify your cooking.</p>
+        <h1>Log in to Design&Dine</h1>
+        <p>Access personalized meal ideas and a curated shopping list, tailored just for you.</p>
     </header>
 
     <div class="login-container">
@@ -315,4 +315,3 @@
     </script>
 </body>
 </html>
-
