@@ -283,7 +283,6 @@
             margin: 0;
         }
         html, body {
-            min-height: 100vh;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -310,6 +309,23 @@
         #shopping-list {
             margin-top: 20px;
         }
+        #shopping-list button {
+    background-color: #6a9a3c; /* Initial background color */
+    color: #fff; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+#shopping-list button:hover {
+    background-color: #e4d426; /* New background color on hover */
+    color: #333; /* Change text color */
+    transform: translateY(-3px); /* Slight lift effect */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
         .meal {
             width: 60%; 
             margin: 0 auto 20px auto;
@@ -509,17 +525,9 @@
                 } else {
                     container.innerHTML = `
                         <p>No items in your shopping list.</p>
-                        <button onclick="location.href='get-meals.html'" style="
-                            background-color: #6a9a3c; 
-                            color: #fff; 
-                            border: none; 
-                            padding: 10px 20px; 
-                            font-size: 1rem; 
-                            cursor: pointer; 
-                            border-radius: 5px; 
-                            margin-top: 20px;">
-                            Start Your Shopping List Now!
-                        </button>`;
+                <button onclick="location.href='get-meals.html'">
+                    Start Your Shopping List Now!
+                </button>`;
                 }
     })
     .catch(error => console.error("Error loading shopping list:", error));
