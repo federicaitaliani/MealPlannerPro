@@ -76,9 +76,9 @@
             color: #333;
             margin-bottom: 10px;
         }
-        .meal .ingredients {
+/*         .meal .ingredients {
             margin-top: 10px;
-        }
+        } */
         .meal button {
             display: inline-block;
             background-color: #6a9a3c;
@@ -93,7 +93,7 @@
         .meal button:hover {
             background-color: #e4d426;
         }
-        .ingredients {
+/*         .ingredients {
             display: none;
             margin-top: 10px;
             padding: 10px;
@@ -104,6 +104,23 @@
         .ingredients ul {
             list-style-type: disc;
             padding-left: 20px;
+            color: #333;
+        } */
+               .details-section {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fefefe;
+            border-radius: 5px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .details-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #333;
+        }
+        .details-section p {
+            margin: 5px 0;
             color: #333;
         }
         header {
@@ -208,13 +225,49 @@
 
 
     <script>
-        function toggleIngredients(id) {
-            const el = document.getElementById(`ingredients-${id}`);
+        // function toggleIngredients(id) {
+        //     const el = document.getElementById(`ingredients-${id}`);
+        //     el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        // }
+          function toggleDetails(id, section) {
+            const el = document.getElementById(`${section}-${id}`);
             el.style.display = el.style.display === 'none' ? 'block' : 'none';
         }
 
         // Fetch shopping list
-        fetch('get_shopping_list.php')
+        // fetch('get_shopping_list.php')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         const container = document.getElementById('shopping-list');
+        //         if (data.success && data.meals.length > 0) {
+        //             data.meals.forEach((meal, index) => {
+        //                 const mealDiv = document.createElement('div');
+        //                 mealDiv.classList.add('meal');
+                        
+        //                 // Create the ingredients div
+        //                 const ingredientsDiv = document.createElement('div');
+        //                 ingredientsDiv.id = `ingredients-${index}`;
+        //                 ingredientsDiv.classList.add('ingredients');
+        //                 ingredientsDiv.style.display = 'none'; // Set to 'none' initially
+                        
+        //                 // Populate the ingredients list
+        //                 const ul = document.createElement('ul');
+        //                 meal.ingredients.forEach(ingredient => {
+        //                     const li = document.createElement('li');
+        //                     li.textContent = ingredient;
+        //                     ul.appendChild(li);
+        //                 });
+        //                 ingredientsDiv.appendChild(ul);
+
+        //                 // Populate the meal div
+        //                 mealDiv.innerHTML = `
+        //                     <h3>${meal.meal_name}</h3>
+        //                     <button onclick="toggleIngredients(${index})">View Ingredients</button>
+        //                 `;
+        //                 mealDiv.appendChild(ingredientsDiv); // Append the ingredients div
+                        
+        //                 container.appendChild(mealDiv);
+            fetch('get_shopping_list.php')
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('shopping-list');
@@ -223,27 +276,32 @@
                         const mealDiv = document.createElement('div');
                         mealDiv.classList.add('meal');
                         
-                        // Create the ingredients div
+                        // Ingredients section
                         const ingredientsDiv = document.createElement('div');
                         ingredientsDiv.id = `ingredients-${index}`;
-                        ingredientsDiv.classList.add('ingredients');
-                        ingredientsDiv.style.display = 'none'; // Set to 'none' initially
-                        
-                        // Populate the ingredients list
-                        const ul = document.createElement('ul');
+                        ingredientsDiv.classList.add('details-section');
+                        const ingredientsList = document.createElement('ul');
                         meal.ingredients.forEach(ingredient => {
                             const li = document.createElement('li');
                             li.textContent = ingredient;
-                            ul.appendChild(li);
+                            ingredientsList.appendChild(li);
                         });
-                        ingredientsDiv.appendChild(ul);
+                        ingredientsDiv.appendChild(ingredientsList);
+
+                        // More info section (if applicable)
+                        const moreInfoDiv = document.createElement('div');
+                        moreInfoDiv.id = `more-info-${index}`;
+                        moreInfoDiv.classList.add('details-section');
+                        moreInfoDiv.innerHTML = `<p>${meal.more_info || 'No additional information.'}</p>`;
 
                         // Populate the meal div
                         mealDiv.innerHTML = `
                             <h3>${meal.meal_name}</h3>
-                            <button onclick="toggleIngredients(${index})">View Ingredients</button>
+                            <button onclick="toggleDetails(${index}, 'ingredients')">View Ingredients</button>
+                            <button onclick="toggleDetails(${index}, 'more-info')">More Info</button>
                         `;
-                        mealDiv.appendChild(ingredientsDiv); // Append the ingredients div
+                        mealDiv.appendChild(ingredientsDiv); // Append ingredients section
+                        mealDiv.appendChild(moreInfoDiv);   // Append more info section
                         
                         container.appendChild(mealDiv);
                     });
