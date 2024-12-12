@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-<style>
     /* General Reset */
     * {
         margin: 0;
@@ -15,7 +14,7 @@
 
     body {
         font-family: 'Poppins', sans-serif;
-        background-color: #fff;
+        background-color: #faf3e0;
         color: #333;
         line-height: 1.6;
     }
@@ -31,9 +30,8 @@
         background-color: #fff;
         color: #000;
         text-align: center;
-        padding: 20px 0; /* Reduced from 60px to 20px */
+        padding: 20px 0;
     }
-
 
     header h1 {
         font-family: 'Glacial Indifference', sans-serif;
@@ -111,50 +109,12 @@
         color: white;
     }
 
-    /* Register Box Styling */
-    .register-box {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 400px;
-        margin-top: 20px;
+    /* New Text Styling */
+    .create-account-text {
         text-align: center;
-    }
-
-    .register-box p {
-        font-size: 1rem;
-        font-weight: normal;
-        margin-bottom: 15px;
-    }
-
-    .register-box a {
-        color: #7a9d3f;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .register-box a:hover {
-        color: #7a9d3f;
-    }
-
-    .register-box button {
-        width: 100%;
-        background-color: #7a9d3f;
-        color: white;
-        font-size: 1.2rem;
-        padding: 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    }
-
-    .register-box button:hover {
-        background-color: #333;
-        color: white;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
     }
 
     /* Footer */
@@ -228,7 +188,7 @@
     #login-message.error {
         color: red;
     }
-</style>
+    </style>
 </head>
 <body>
     <div class="top-nav">
@@ -245,11 +205,6 @@
         </div>
     </div>
 
-    <header>
-        <h1>Log in to Design&Dine</h1>
-        <p>Access personalized meal ideas and a curated shopping list, tailored just for you.</p>
-    </header>
-
     <div class="login-container">
         <div class="login-box">
             <h2>Login</h2>
@@ -261,11 +216,8 @@
                 <button type="submit">Login</button>
             </form>
             <div id="login-message"></div> <!-- Message displayed after login attempt -->
-        </div>
+            <p class="create-account-text">Don't have an account? <a href="register.html">Create One Now!</a>
 
-        <div class="register-box">
-            <p>Don't have an account? <a href="register.html">Create One Now!</a></p>
-            <button onclick="window.location.href='register.html'">Register</button>
         </div>
     </div>
 
@@ -275,9 +227,11 @@
                 <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
                 <a href="register.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
             </div>
-            <p>&copy; 2024 Design&Dine. All rights reserved. 
+            
+&copy; 2024 Design&Dine. All rights reserved. 
                 | <a href="mailto:support@designdine.com">Contact Us</a>
-            </p>
+            
+
         </div>
     </footer>
 
