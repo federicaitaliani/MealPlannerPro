@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saved Meals</title>
     <style>
-         body {
+        body {
             font-family: 'Poppins', sans-serif;
             background-color: #faf3e0; /* Light Beige */
             color: #333;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
         }
 
         .container {
@@ -17,28 +21,24 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #faf3e0; /* Light Beige */
+
+            flex: 1;
         }
 
-          h1 {
+        h1 {
             font-size: 2.5rem;
             text-align: center;
-            color: #444;
             color: #333;
             margin-bottom: 30px;
         }
 
-         .meal {
+        .meal {
             width: 60%; 
             margin: 0 auto 20px auto;
             padding: 15px;
-            margin-bottom: 20px;
-            padding: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background: #f9f9f9;
             background-color: #f9f9f9;
-            border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -53,12 +53,7 @@
             color: #007bff;
             font-size: 1.5em;
         }
-        .meal h3 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #444;
-            margin-bottom: 10px;
-        }
+
         .meal .toggle-btn, .meal .recipe-link {
             display: inline-block;
             margin-top: 10px;
@@ -74,7 +69,7 @@
         }
 
         .meal .toggle-btn:hover, .meal .recipe-link:hover {
-            background-color: rgb(0, 117, 23)
+            background-color: rgb(0, 117, 23);
         }
 
         .meal .toggle-btn.active {
@@ -86,7 +81,7 @@
             display: none;
         }
 
-          .ingredients ul {
+        .ingredients ul {
             list-style-type: disc;
             padding-left: 20px;
             color: #666;
@@ -101,12 +96,15 @@
             font-size: 1.2em;
             color: #666;
         }
-     /* Footer */
+
+        /* Footer */
         footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 20px 0;
+            width: 100%;
+            margin-top: auto;
         }
 
         footer a {
@@ -138,13 +136,13 @@
         }
 
         .logo {
-            height: 80px;  /* Reduced size of the logo */
-            margin-right: 20px;  /* Space between logo and navigation links */
-            margin-left: 0;  /* Align logo to the left */
+            height: 80px; 
+            margin-right: 20px;
+            margin-left: 0;
         }
 
         nav a {
-            color: #6a9a3c;  /* Earthy green */
+            color: #6a9a3c;
             text-decoration: none;
             font-size: 1rem;
             font-weight: bold;
@@ -158,7 +156,6 @@
             background-color: #e4d426;
             color: white;
         }
-
     </style>
 </head>
 <body>
@@ -173,25 +170,23 @@
                 <a href="shop_list.html">CART</a>
                 <a href="about.html">ABOUT</a>
             </nav>
-
         </div>
     </div>
     <header>
-    <div class="container">
-        <h1>Saved Meals</h1>
-        <div id="saved-meals"></div>
-    </div>
+        <div class="container">
+            <h1>Saved Meals</h1>
+            <div id="saved-meals"></div>
+        </div>
     </header>
     <footer>
         <div class="container">
-            <!-- Login and Register links above the Contact Us line -->
             <div style="margin-bottom: 10px; text-align: center;">
                 <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
-                <a href="register.html" style="color:  rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
+                <a href="register.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
             </div>
             <p>&copy; 2024 Design&Dine. All rights reserved. 
                 | <a href="mailto:support@designdine.com">Contact Us</a> 
-            </p>
+          </p>
         </div>
     </footer>
     <script>
