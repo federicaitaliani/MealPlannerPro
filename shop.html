@@ -1,0 +1,123 @@
+<?php
+// Fetch user inputs from the form
+$mealType = isset($_GET['mealType']) ? urlencode($_GET['mealType']) : '';
+$health = isset($_GET['health']) ? urlencode($_GET['health']) : '';
+$include = isset($_GET['include']) ? urlencode($_GET['include']) : '';
+$exclude = isset($_GET['exclude']) ? urlencode($_GET['exclude']) : '';
+
+// Edamam API credentials
+$app_id = '747edc88';
+$app_key = 'f9833db515fa1f1cba96cc45dd64b25e';
+
+// Set the batch size and range for results
+$batchSize = 50;
+$from = 0;
+$to = $batchSize;
+
+// Construct the API query URL with basic filters
+$api_url = "https://api.edamam.com/api/recipes/v2?type=public&app_id=$app_id&app_key=$app_key";
+
+// Add basic filters
+$api_url .= "&imageSize=REGULAR"; // Ensure good quality images
+
+// If no meal type is specified, default to main course dishes
+if (empty($mealType)) {
+    // Include a variety of main dish types
+    $api_url .= "&dishType=main%20course&dishType=soup&dishType=salad";
+} else {
+    $api_url .= "&mealType=$mealType";
+    
+    // Add appropriate dish types based on meal type
+    if ($mealType === "Breakfast") {
+        $api_url .= "&dishType=breakfast";
+    } else {
+        // For lunch and dinner, focus on main courses
+        $api_url .= "&dishType=main%20course&dishType=soup&dishType=salad";
+    }
+}
+
+// Exclude unwanted categories
+$excluded_types = [
+    "Alcohol",
+    "Punch",
+    "Beverages",
+    "Condiments and sauces",
+    "Preserve"
+];
+
+foreach ($excluded_types as $type) {
+    $api_url .= "&excluded=" . urlencode($type);
+}
+
+if (!empty($health)) $api_url .= "&health=$health";
+if (!empty($include)) $api_url .= "&q=$include";
+if (!empty($exclude)) {
+    $excludeItems = explode(',', $exclude);
+    foreach ($excludeItems as $item) {
+        $api_url .= "&excluded=" . urlencode(trim($item));
+    }
+}
+
+$api_url .= "&from=$from&to=$to";
+
+// Log the API URL for debugging
+error_log("API URL: " . $api_url);
+
+// Fetch the data
+$response = file_get_contents($api_url);
+
+if ($response === FALSE) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "Failed to fetch data from the API."]);
+    exit();
+}
+
+$data = json_decode($response, true);
+
+if (isset($data['hits']) && count($data['hits']) > 0) {
+    // Filter out non-meal items
+    $filtered_hits = array_filter($data['hits'], function($hit) {
+        $recipe = $hit['recipe'];
+        
+        // Skip very low-calorie items (likely condiments or beverages)
+        if (isset($recipe['calories']) && $recipe['calories'] < 100) {
+            return false;
+        }
+
+        // Skip items that are likely not main dishes
+        if (isset($recipe['dishType'])) {
+            $unwanted_types = [
+                'drinks', 
+                'beverages', 
+                'preserve', 
+                'condiments and sauces',
+                'spreads',
+                'syrup',
+                'starter'
+            ];
+            foreach ($recipe['dishType'] as $type) {
+                if (in_array(strtolower($type), $unwanted_types)) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    });
+
+    // Reset array keys
+    $filtered_hits = array_values($filtered_hits);
+
+    // Shuffle and limit results
+    shuffle($filtered_hits);
+    $selectedResults = array_slice($filtered_hits, 0, 10);
+
+    header('Content-Type: application/json');
+    echo json_encode(['hits' => $selectedResults]);
+} else {
+    echo json_encode([
+        "success" => false, 
+        "message" => "No recipes found for the given criteria. Try broadening your search."
+    ]);
+}
+exit();
