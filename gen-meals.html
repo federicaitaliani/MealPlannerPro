@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Planner</title>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
-        }
-
         body {
             font-family: Arial, sans-serif;
             background-color: #faf3e0;
@@ -65,47 +59,97 @@
 
         .results {
             margin-top: 20px;
+            display: grid;
+            gap: 20px;
         }
 
         .meal {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             background: #fff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: block;
+        }
+
+        .meal:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .meal img {
-            width: 150px;
-            height: 100px;
+            width: 100%;
+            height: 250px;
             object-fit: cover;
-            border-radius: 5px;
+            display: block;
         }
 
         .meal-info {
-            flex: 1;
-            margin-left: 20px;
+            padding: 20px;
         }
 
         .meal-info h3 {
-            margin: 0 0 10px;
+            margin: 0 0 15px;
+            color: #333;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .meal-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .stat-label {
+            font-weight: bold;
+            color: #666;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
 
         .meal-info button {
-            margin: 5px 0;
-            padding: 8px 12px;
+            padding: 8px 16px;
             border: none;
-            border-radius: 3px;
-            background: #007bff;
-            color: white;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
 
-        .meal-info button:hover {
-            background: #0056b3;
+        .save-btn {
+            background-color: #6a9a3c;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background-color: #567d31;
+        }
+
+        .cart-btn {
+            background-color: #e4d426;
+            color: #333;
+        }
+
+        .cart-btn:hover {
+            background-color: #c9bb22;
         }
 
         /* Footer */
@@ -114,8 +158,7 @@
             color: white;
             text-align: center;
             padding: 20px 0;
-            width: 100%; /* Ensure the footer spans the full width */
-            position: relative;
+            margin-top: 40px;
         }
 
         footer a {
@@ -147,12 +190,13 @@
         }
 
         .logo {
-            height: 80px;  /* Reduced size of the logo */
-            margin-right: 20px;  /* Space between logo and navigation links */
+            height: 80px;
+            margin-right: 20px;
+            margin-left: 0;
         }
 
         nav a {
-            color: #6a9a3c;  /* Earthy green */
+            color: #6a9a3c;
             text-decoration: none;
             font-size: 1rem;
             font-weight: bold;
@@ -169,7 +213,7 @@
     </style>
 </head>
 <body>
-     <div class="top-nav">
+    <div class="top-nav">
         <div class="nav-container">
             <a href="index.html">
                 <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
@@ -213,7 +257,7 @@
 
         <div id="results" class="results"></div>
     </div>
-    <!-- Footer Section -->
+
     <footer>
         <div>
             <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
@@ -221,6 +265,7 @@
         </div>
         <p>&copy; 2024 Design&Dine. All rights reserved. | <a href="mailto:support@designdine.com">Contact Us</a></p>
     </footer>
+
     <script>
         document.getElementById("recipe-form").addEventListener("submit", function (e) {
             e.preventDefault();
@@ -230,7 +275,6 @@
             const include = encodeURIComponent(document.getElementById("include").value);
             const exclude = encodeURIComponent(document.getElementById("exclude").value);
     
-            // Add timestamp to avoid caching
             const url = `fetch_recipes.php?mealType=${mealType}&health=${health}&include=${include}&exclude=${exclude}&_ts=${Date.now()}`;
     
             const resultsDiv = document.getElementById("results");
@@ -240,8 +284,6 @@
                 .then(response => response.json())
                 .then(data => {
                     resultsDiv.innerHTML = "";
-    
-                    console.log("API Raw Results:", data.hits); // Debugging
     
                     if (data.hits && data.hits.length > 0) {
                         data.hits.forEach(hit => {
@@ -264,17 +306,36 @@
                                 <img src="${recipe.image}" alt="${recipe.label}">
                                 <div class="meal-info">
                                     <h3>${recipe.label}</h3>
-                                    <p>Calories: ${calories}</p>
-                                    <p>Protein: ${protein}</p>
-                                    <p>Fat: ${fat}</p>
-                                    <p>Carbs: ${carbs}</p>
-                                    <p>Prep Time: ${prepTime}</p>
-                                    <button onclick="saveToFavorites('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')}, '${recipe.image}', '${recipe.url}', ${calories}, '${protein}', '${fat}', '${carbs}', '${prepTime}')">
-                                        Save to Favorites
-                                    </button>
-                                    <button onclick="addToShoppingList('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
-                                        Add to Shopping List
-                                    </button>
+                                    <div class="meal-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-label">Calories</span>
+                                            <span class="stat-value">${calories}</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">Protein</span>
+                                            <span class="stat-value">${protein}</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">Fat</span>
+                                            <span class="stat-value">${fat}</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">Carbs</span>
+                                            <span class="stat-value">${carbs}</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">Prep Time</span>
+                                            <span class="stat-value">${prepTime}</span>
+                                        </div>
+                                    </div>
+                                    <div class="button-container">
+                                        <button class="save-btn" onclick="saveToFavorites('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')}, '${recipe.image}', '${recipe.url}', ${calories}, '${protein}', '${fat}', '${carbs}', '${prepTime}')">
+                                            Save to Favorites
+                                        </button>
+                                        <button class="cart-btn" onclick="addToShoppingList('${recipe.label}', ${JSON.stringify(recipe.ingredientLines).replace(/"/g, '&quot;')})">
+                                            Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             `;
                             resultsDiv.appendChild(mealDiv);
@@ -343,6 +404,5 @@
                 });
         }
     </script>
-    
 </body>
 </html>
