@@ -86,14 +86,99 @@
             font-size: 1.2em;
             color: #666;
         }
+     /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navbar */
+        .top-nav {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e4d426;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            height: 80px;  /* Reduced size of the logo */
+            margin-right: 20px;  /* Space between logo and navigation links */
+            margin-left: 0;  /* Align logo to the left */
+        }
+
+        nav a {
+            color: #6a9a3c;  /* Earthy green */
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #e4d426;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html">
+                <img src="logo.jpg" alt="Design&Dine Logo" class="logo">
+            </a>
+            <nav>
+                <a href="gen-meals.html">RECIPES</a>
+                <a href="saved.html">FAVORITES</a>
+                <a href="shop_list.html">CART</a>
+                <a href="about.html">ABOUT</a>
+            </nav>
+
+        </div>
+    </div>
+    <header>
     <div class="container">
         <h1>Saved Meals</h1>
         <div id="saved-meals"></div>
     </div>
-
+    </header>
+    <footer>
+        <div class="container">
+            <!-- Login and Register links above the Contact Us line -->
+            <div style="margin-bottom: 10px; text-align: center;">
+                <a href="login.html" style="color: rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; margin-right: 15px; text-decoration: none;">Login</a>
+                <a href="register.html" style="color:  rgb(220, 198, 30); font-size: 1.2rem; font-weight: bold; text-decoration: none;">Register</a>
+            </div>
+            <p>&copy; 2024 Design&Dine. All rights reserved. 
+                | <a href="mailto:support@designdine.com">Contact Us</a> 
+            </p>
+        </div>
+    </footer>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetch("saved.php")
